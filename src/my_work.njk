@@ -1,0 +1,87 @@
+---
+layout: base.njk
+title: Deployments | CorruptCache
+---
+
+{% include "components/nav.njk" %}
+
+<main class="container">
+  <div class="terminal-window">
+    <h2>[DEPLOYMENTS]</h2>
+
+    <div class="project">
+      <div class="project-header">
+        <h3>Project Alpha: Secure Authentication Service</h3>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener noreferrer">Live Demo</a>
+          <a href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </div>
+      </div>
+      <p>A microservice built in Go that provides robust, JWT-based authentication for modern web applications. Designed to be fast, scalable, and secure from the ground up.</p>
+      <div class="tech-stack">
+        <span class="tech-stack-item">Go</span>
+        <span class="tech-stack-item">PostgreSQL</span>
+        <span class="tech-stack-item">Docker</span>
+        <span class="tech-stack-item">JWT</span>
+        <span class="tech-stack-item">Bcrypt</span>
+      </div>
+      <div class="case-study">
+          <h4>Security Case Study</h4>
+          <p><strong>The Build:</strong> The service was built with a focus on secure defaults, including password hashing with bcrypt and short-lived access tokens with refresh token rotation.</p>
+          <p><strong>The Vulnerability:</strong> Initial versions were susceptible to a minor timing attack during the password comparison process. Although difficult to exploit, it represented a theoretical weakness in the authentication flow.</p>
+          <p><strong>The Patch:</strong> Implemented a constant-time comparison algorithm for password hashes, ensuring that the time taken to compare hashes is always the same, regardless of how many characters are correct. This mitigates the timing attack vector entirely.</p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <h3>Project Beta: CI/CD Security Pipeline</h3>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </div>
+      </div>
+      <p>A complete CI/CD pipeline template using GitHub Actions that incorporates static application security testing (SAST) and software composition analysis (SCA) for Python-based projects.</p>
+      <div class="tech-stack">
+        <span class="tech-stack-item">GitHub Actions</span>
+        <span class="tech-stack-item">YAML</span>
+        <span class="tech-stack-item">Bandit</span>
+        <span class="tech-stack-item">Safety</span>
+        <span class="tech-stack-item">Docker</span>
+      </div>
+      <div class="case-study">
+          <h4>Security Case Study</h4>
+          <p><strong>The Build:</strong> The pipeline is designed to be triggered on every pull request, acting as a security gate before code is merged into the main branch.</p>
+          <p><strong>The Vulnerability:</strong> The initial configuration allowed the pipeline to be bypassed if a specific commit message tag was used, a feature intended for emergencies but exploitable by a malicious insider.</p>
+          <p><strong>The Patch:</strong> Implemented branch protection rules in GitHub, requiring the pipeline to pass successfully without exception. The emergency bypass was replaced with a more secure, role-based manual approval step for trusted administrators.</p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <h3>Project Gamma: Threat Modeling Dashboard</h3>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener noreferrer">Live Demo</a>
+          <a href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </div>
+      </div>
+      <p>A web-based application built with React and TypeScript that allows teams to collaboratively create and manage threat models for their software projects using the STRIDE methodology.</p>
+      <div class="tech-stack">
+        <span class="tech-stack-item">React</span>
+        <span class="tech-stack-item">TypeScript</span>
+        <span class="tech-stack-item">Node.js</span>
+        <span class="tech-stack-item">WebSocket</span>
+      </div>
+      <div class="case-study">
+          <h4>Security Case Study</h4>
+          <p><strong>The Build:</strong> The application uses WebSockets for real-time collaboration, allowing multiple users to edit a threat model simultaneously.</p>
+          <p><strong>The Vulnerability:</strong> The WebSocket connection lacked sufficient input validation on incoming messages, allowing a malicious user to send a crafted payload that could cause a denial-of-service (DoS) condition for other connected clients by crashing their browser tab.</p>
+          <p><strong>The Patch:</strong> Implemented a strict schema validation layer on the server for all incoming WebSocket messages. Any message that does not conform to the expected structure is immediately dropped, preventing the malicious payload from ever reaching other clients.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
+
+{% include "components/footer.njk" %}

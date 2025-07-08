@@ -882,3 +882,50 @@ h4 {
   }
 }
 
+/* --- DEPLOYMENTS PAGE SPECIFIC STYLES --- */
+.project {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px dashed #333;
+}
+.project:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.project-links a {
+    margin-left: 1rem;
+    color: #a66bff;
+    text-decoration: none;
+}
+.project-links a:hover {
+    text-decoration: underline;
+}
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+.tech-stack-item {
+    background-color: #333;
+    color: #e0e0e0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+.case-study {
+    background-color: #0f0f0f;
+    border: 1px solid #222;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
+
