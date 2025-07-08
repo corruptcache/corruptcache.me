@@ -1,0 +1,20 @@
+{# Navigation Component #}
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo-link" aria-label="Back to Homepage">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="#a66bff" stroke-width="1.5" />
+        <circle cx="12" cy="12" r="2" stroke="#a66bff" stroke-width="1.5" />
+        <path d="M7 8L10 13L12 11L15 16L17 14" stroke="#a66bff" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <span>CorruptCache.me</span>
+    </a>
+    <ul>
+      <li><a href="/about" class="{% if page.url === '/about/' %}active{% endif %}">About</a></li>
+      <li><a href="/resume" class="{% if page.url === '/resume/' %}active{% endif %}">Resume</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/#latest-posts">Blog</a></li>
+      <li><a href="/newsletter-archives" class="{% if page.url === '/newsletter-archives/' %}active{% endif %}">Newsletter</a></li>
+    </ul>
+  </div>
+</nav>
