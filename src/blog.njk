@@ -1,370 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: base.njk
+title: Blog
+permalink: /blog/index.html
+---
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog | CorruptCache</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
-  <style>
-    /* Global Resets and Basic Setup */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+{% include "components/nav.njk" %}
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      color: #e0e0e0;
-      font-family: 'Share Tech Mono', monospace;
-      overflow-x: hidden;
-      background-color: #0f0f0f;
-    }
-
-    /* --- BACKGROUND AND OVERLAYS --- */
-    #matrix-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 2px);
-      z-index: 1001;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
-    /* CRT Bezel and Glass Effect */
-    body::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 20px solid black;
-        border-radius: 15px;
-        box-shadow: 
-            inset 0 0 15px 5px rgba(255, 255, 255, 0.15),
-            inset 0 0 30px 10px rgba(0, 0, 0, 0.8),
-            0 0 10px rgba(0,0,0,0.5);
-        pointer-events: none;
-        z-index: 2000;
-    }
-
-    /* --- NAVIGATION BAR --- */
-    .navbar {
-      background-color: #0f0f0f;
-      padding: 1rem 0;
-      border-bottom: 1px solid #333;
-      position: sticky;
-      top: 20px;
-      z-index: 1000;
-    }
-
-    .navbar-inner {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 0 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    .logo-link {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        color: #e0e0e0;
-        text-decoration: none;
-        font-family: 'VT323', monospace;
-        font-size: 1.5rem;
-    }
-
-    .logo-link span {
-        transition: text-shadow 0.2s ease-in-out;
-    }
-
-    .logo-link:hover span {
-        text-shadow: 0 0 3px #a66bff;
-    }
-
-    .navbar ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .navbar li {
-      display: inline-block;
-      margin: 0 0 0 1.5rem;
-    }
-
-    .navbar ul a {
-      color: #a66bff;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
-    }
-
-    .navbar ul a:hover {
-      color: #e0e0e0;
-      text-shadow: 0 0 5px #a66bff;
-    }
-
-    /* --- LAYOUT CONTAINERS & SPACING --- */
-    .container {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      display: flex;
-      gap: 2rem;
-    }
+<div class="container">
+  <main>
+    <h1>Blog</h1>
     
-    main {
-        flex: 3;
-    }
-    
-    aside {
-        flex: 1;
-    }
-
-    /* --- TERMINAL WINDOW STYLES --- */
-    .terminal-window {
-      background-color: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 2.5rem 2rem 2rem;
-      position: relative;
-      overflow: hidden;
-      animation: flicker 0.15s infinite;
-      text-shadow: 0 0 2px rgba(166, 107, 255, 0.5);
-      margin-bottom: 2rem;
-    }
-
-    .terminal-window::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 30px;
-      background-color: #282828;
-      border-bottom: 1px solid #333;
-    }
-
-    .terminal-window::after {
-      content: '● ● ●';
-      position: absolute;
-      top: 6px;
-      left: 12px;
-      color: #555;
-      letter-spacing: 6px;
-      font-size: 12px;
-    }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.95; }
-    }
-
-    /* --- TYPOGRAPHY --- */
-    h1, h2, h3, h4 {
-      font-family: 'VT323', monospace;
-    }
-    h1 {
-        font-size: 3em;
-        color: #e0e0e0;
-        margin-bottom: 2rem;
-        text-align: center;
-    }
-    h2 {
-      color: #a66bff;
-      font-size: 2em;
-      margin-bottom: 0.5rem;
-    }
-    h3 {
-      color: #e0e0e0;
-      font-size: 1.5em;
-      margin-bottom: 1rem;
-    }
-    h4 {
-        color: #a66bff;
-        font-size: 1.2em;
-        margin-bottom: 0.75rem;
-        border-bottom: 1px solid #333;
-        padding-bottom: 0.5rem;
-    }
-    p {
-        line-height: 1.6;
-    }
-
-    /* --- BLOG SPECIFIC STYLES --- */
-    .post-meta {
-        font-size: 0.9rem;
-        color: #888;
-        margin-bottom: 1rem;
-    }
-    .post-excerpt {
-        margin-bottom: 1.5rem;
-    }
-    .cta-button {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border: 1px solid #a66bff;
-      color: #a66bff;
-      background: transparent;
-      text-decoration: none;
-      transition: all 0.2s ease-in-out;
-    }
-    .cta-button:hover {
-      background: #a66bff;
-      color: #0f0f0f;
-    }
-    
-    .sidebar-widget {
-        margin-bottom: 2rem;
-    }
-    .sidebar-list {
-        list-style: none;
-        padding: 0;
-    }
-    .sidebar-list li {
-        margin-bottom: 0.5rem;
-    }
-    .sidebar-list a {
-        color: #a66bff;
-        text-decoration: none;
-    }
-    .sidebar-list a:hover {
-        text-decoration: underline;
-    }
-
-    /* --- RESPONSIVE DESIGN --- */
-    @media (max-width: 768px) {
-      body::after {
-          display: none;
-      }
-      .navbar {
-          top: 0;
-      }
-      .container {
-          flex-direction: column;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <canvas id="matrix-canvas"></canvas>
-
-  {% include "components/nav.njk" %}
-
-  <div class="container">
-    <main>
-      <h1>[BLOG_FEED]</h1>
-      
+    {% for post in collections.blog | reverse %}
       <article class="terminal-window">
-        <h2>Deconstructing the Log4j Vulnerability</h2>
-        <p class="post-meta">Published on July 07, 2025 by CorruptCache</p>
-        <p class="post-excerpt">A deep dive into one of the most critical vulnerabilities of the last decade. We'll explore how Log4Shell works, why it was so widespread, and the key lessons developers can learn about input sanitization and dependency management...</p>
-        <a href="#" class="cta-button">Read More &rarr;</a>
+        <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+        <p class="post-meta">Published on {{ post.date | date("MMMM d, yyyy") }} by CorruptCache</p>
+        {% if post.data.description %}
+          <p class="post-excerpt">{{ post.data.description }}</p>
+        {% endif %}
+        <a href="{{ post.url }}" class="cta-button">Read More &rarr;</a>
       </article>
+    {% endfor %}
 
-      <article class="terminal-window">
-        <h2>A Developer's Guide to Sanitizing User Input</h2>
-        <p class="post-meta">Published on June 28, 2025 by CorruptCache</p>
-        <p class="post-excerpt">The first line of defense in application security is trusting nothing. This guide provides actionable code examples in Python and JavaScript for properly sanitizing user-submitted data to prevent common injection attacks like XSS and SQLi...</p>
-        <a href="#" class="cta-button">Read More &rarr;</a>
-      </article>
+  </main>
 
-      <article class="terminal-window">
-        <h2>Automating Security with GitHub Actions</h2>
-        <p class="post-meta">Published on June 15, 2025 by CorruptCache</p>
-        <p class="post-excerpt">Let's move security left. This post walks through setting up a CI/CD pipeline using GitHub Actions to automatically scan for vulnerabilities with open-source tools, ensuring a baseline of security before any code is merged...</p>
-        <a href="#" class="cta-button">Read More &rarr;</a>
-      </article>
-      
-    </main>
+  <aside>
+      <div class="terminal-window sidebar-widget">
+          <h4>Categories</h4>
+          {% if collections.tagList.length > 0 %}
+              <ul class="sidebar-list">
+                  {% for tag in collections.tagList %}
+                      <li><a href="/tags/{{ tag | slugify }}/">{{ tag }}</a></li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+      </div>
+      <div class="terminal-window sidebar-widget">
+          <h4>Archives</h4>
+          {% if collections.postsByMonth %}
+              <ul class="sidebar-list">
+                  {% for month, posts in collections.postsByMonth %}
+                      <li><a href="/archive/{{ month | slugify }}/">{{ month }} ({{ posts.length }})</a></li>
+                  {% endfor %}
+              </ul>
+          {% endif %}
+      </div>
+  </aside>
+</div>
 
-    <aside>
-        <div class="terminal-window sidebar-widget">
-            <h4>Categories</h4>
-            <ul class="sidebar-list">
-                <li><a href="#">Vulnerability Analysis</a></li>
-                <li><a href="#">Secure Coding</a></li>
-                <li><a href="#">DevSecOps</a></li>
-                <li><a href="#">Threat Modeling</a></li>
-                <li><a href="#">Tooling</a></li>
-            </ul>
-        </div>
-        <div class="terminal-window sidebar-widget">
-            <h4>Archives</h4>
-            <ul class="sidebar-list">
-                <li><a href="#">July 2025</a></li>
-                <li><a href="#">June 2025</a></li>
-                <li><a href="#">May 2025</a></li>
-                <li><a href="#">April 2025</a></li>
-            </ul>
-        </div>
-    </aside>
-  </div>
-
-  {% include "components/footer.njk" %}
-
-  <script>
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const characters = "日一国会人年大十二本中長出三同時政事自行社見月分議後前民生連五発間対上部東者党地合市業内相方四定今回新場金員九入選立開手米力学問高代明実円関決子動京全目表戦経通外最言氏現理調体化田当八六約主題下首法 valde Sistit アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン!@#$%^&*(){}_-=+";
-    const charArray = characters.split('');
-    const fontSize = 16;
-    let columns = canvas.width / fontSize;
-    let drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    function draw() {
-      ctx.fillStyle = 'rgba(15, 15, 15, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#a66bff';
-      ctx.font = fontSize + 'px "Share Tech Mono", monospace';
-      for (let i = 0; i < drops.length; i++) {
-        const text = charArray[Math.floor(Math.random() * charArray.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-    setInterval(draw, 33);
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        columns = canvas.width / fontSize;
-        drops = [];
-        for (let x = 0; x < columns; x++) drops[x] = 1;
-    });
-  </script>
-
-</body>
-</html>
+{% include "components/footer.njk" %}

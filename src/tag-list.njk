@@ -1,0 +1,22 @@
+---
+layout: base.njk
+title: All Tags
+permalink: /tags/index.html
+---
+
+{% include "components/nav.njk" %}
+
+<div class="container">
+  <main>
+    <h1>All Tags</h1>
+    <div class="terminal-window">
+      <ul class="sidebar-list">
+        {% for tag in collections.tagList %}
+          <li><a href="/tags/{{ tag | slugify }}/">{{ tag }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </main>
+</div>
+
+{% include "components/footer.njk" %}

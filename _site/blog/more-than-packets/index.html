@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>More Than Packets: How the Network+ Made Me a Better Application Security Engineer | CorruptCache.me</title>
+  <meta name="description" content="Andrew Knowles: Application Security, Secure Coding, Portfolio, Blog, and more.">
+  <meta property="og:title" content="More Than Packets: How the Network+ Made Me a Better Application Security Engineer | CorruptCache.me">
+  <meta property="og:description" content="Application Security, Secure Coding, Portfolio, Blog, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://corruptcache.me/blog/more-than-packets/">
+  <meta property="og:image" content="/assets/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="More Than Packets: How the Network+ Made Me a Better Application Security Engineer | CorruptCache.me">
+  <meta name="twitter:description" content="Application Security, Secure Coding, Portfolio, Blog, and more.">
+  <meta name="twitter:image" content="/assets/social-preview.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|VT323&display=swap" rel="stylesheet">
+  <script defer src="/js/main.js"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Andrew Knowles",
+      "url": "https://corruptcache.me/",
+      "sameAs": [
+        "https://github.com/corruptcache",
+        "https://www.linkedin.com/in/corruptcache/"
+      ],
+      "jobTitle": "Application Security Engineer",
+      "image": "/assets/social-preview.png"
+    }
+  </script>
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+  
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo-link" aria-label="Back to Homepage">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="#a66bff" stroke-width="1.5" />
+        <circle cx="12" cy="12" r="2" stroke="#a66bff" stroke-width="1.5" />
+        <path d="M7 8L10 13L12 11L15 16L17 14" stroke="#a66bff" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <span>CorruptCache.me</span>
+    </a>
+    <ul>
+      <li><a href="/about" class="">About</a></li>
+      <li><a href="/resume" class="">Resume</a></li>
+      <li><a href="/my_work" class="">Work</a></li>
+      <li><a href="/blog" class="">Blog</a></li>
+      <li><a href="/newsletter-archives" class="">Newsletter</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<main class="container">
+  <article class="terminal-window post-article">
+      <h1>More Than Packets: How the Network+ Made Me a Better Application Security Engineer</h1>
+      <p class="post-meta">Published on %B %8, %Y by Andrew Knowles</p>
+
+      
+      <img src="http://googleusercontent.com/image_generation_content/0" alt="An abstract network grid with glowing data packets, representing the complexity of network layers." class="post-image">
+      
+
+      <p>The emergency Slack channel explodes. The application is lagging, alerts are firing, and the blame game begins. The developers swear the build is solid: &quot;It worked in staging! It has to be the network.&quot; The network admins fire back from their own dashboards: &quot;Our metrics are green. It has to be the code.&quot;</p>
+<p>This tug-of-war is an industry cliché for a reason. I remember the feeling well from <a href="/about">my own start in tech</a>. When I was earning my full-stack certificate in 2018, <a href="/my_work">deploying a project</a> was an exercise in faith. I knew just enough about IP addresses and DNS to get an app live, but the actual mechanics were a mystery. It’s a common rite of passage for developers to treat the network as a utility—a black box that just works. In Application Security, however, that black box isn't just a gap in knowledge. It's a gaping hole in our defenses.</p>
+<p>So, I decided it was time to fill that gap. I challenged myself with the CompTIA Network+ certification. After weeks of studying and applying the concepts by rebuilding my own home network from scratch, I passed it on my first try. The real prize wasn't the certificate, though. It was the powerful new lens it gave me to see risk. It taught me that the roots of many application vulnerabilities aren't in the code, but in the network it trusts.</p>
+<p>So, let's break down the key concepts I stole from the Net+ syllabus—and how you can use them to become a more effective <a href="/resume">Application Security Engineer</a>.</p>
+<hr>
+<h2>The OSI Model: Your Practical Troubleshooting Map</h2>
+<p>Most developers remember the <strong>OSI model</strong> as a useless mnemonic from a computer science class. We memorized the 7 layers for a test and promptly forgot them. In Application Security, however, this is a mistake. The <strong>OSI model</strong> is one of the most powerful diagnostic tools you can have.</p>
+<p>The key is to use it as a map to answer one critical question: <strong>Where is the problem?</strong></p>
+<h3>The Scenario: An Unreachable API</h3>
+<p>Imagine your application can't reach a critical API. Instead of guessing, you use the <strong>OSI model</strong> to troubleshoot logically from top to bottom.</p>
+<p><img src="http://googleusercontent.com/image_generation_content/1" alt="A diagram of the 7 layers of the OSI model, from Application down to Physical."></p>
+<h4>Step 1: Is It My Fault? (Layer 7 - Application)</h4>
+<ul>
+<li><strong>Action:</strong> Use a tool like <code>curl</code> to make a direct request to the API endpoint.<pre><code class="language-bash">curl https://api.example.com/v1/status
+</code></pre>
+</li>
+<li><strong>Analysis:</strong> If you get back <strong>any HTTP response</strong> (like a <code>404 Not Found</code>), the network connection is likely fine. The problem is at the <strong>application layer</strong>: a bad code deployment, a Web Application Firewall (WAF) rule, or a server misconfiguration.</li>
+</ul>
+<h4>Step 2: Are the Doors Unlocked? (Layer 4 - Transport)</h4>
+<ul>
+<li><strong>Action:</strong> If your <code>curl</code> request times out, try to make a basic TCP connection using a tool like <code>telnet</code>.<pre><code class="language-bash">telnet api.example.com 443
+</code></pre>
+</li>
+<li><strong>Analysis:</strong> If the connection is <code>refused</code> or <code>times out</code>, the application is never even seeing your request. The problem is at the <strong>transport layer</strong>: a <strong>firewall</strong>, an AWS <strong>security group</strong>, or another network access control is blocking the port.</li>
+</ul>
+<h4>Step 3: Does This Address Even Exist? (Layer 3 - Network)</h4>
+<ul>
+<li><strong>Action:</strong> If you can't even make a TCP connection, check basic connectivity with <code>ping</code>.</li>
+<li><strong>Analysis:</strong> If <code>ping</code> fails, you can't even find a path to the server. The problem is at the <strong>network layer</strong>: a routing issue.</li>
+</ul>
+<blockquote>
+<p><strong>The AppSec Takeaway:</strong> The <strong>OSI model</strong> turns you from a developer who guesses (&quot;The server is down!&quot;) into a security professional who diagnoses (&quot;It looks like the firewall is blocking TCP port 443.&quot;). It provides a systematic way to isolate application issues from network issues—a critical skill in any security incident investigation.</p>
+</blockquote>
+<hr>
+<h2>DNS: The Internet's Vulnerable Phonebook</h2>
+<p>To most developers, <strong>DNS</strong> is magic. You register a domain, point an ‘A’ record to your server’s IP, and you’re done. It's the &quot;set it and forget it&quot; service. Studying for the Network+ shatters this illusion, forcing you to see <strong>DNS</strong> for what it is: a complex, globally distributed database full of security weaknesses.</p>
+<p>For an AppSec pro, understanding that &quot;phonebook&quot; is not just for reading—it's for exploiting.</p>
+<h3>Vulnerability 1: Your TXT Records are Spilling Secrets</h3>
+<p>Your public <code>TXT</code> and <code>SPF</code> records often announce which third-party services your company trusts (e.g., Google, Salesforce). An attacker queries these records to get a cheat sheet for planning a sophisticated phishing attack. An attacker can craft a fake email that looks like it's from a service you <em>actually use</em>.</p>
+<h3>Vulnerability 2: Subdomain Takeover via Dangling CNAMEs</h3>
+<p>A <code>CNAME</code> record pointing to a decommissioned service (like an old GitHub Page or Heroku instance) is a &quot;dangling&quot; pointer. An attacker can claim your old address on that service and instantly host malicious content on your official subdomain. This high-impact vulnerability is called subdomain takeover, and knowing how <code>CNAME</code> records work makes you paranoid enough to look for it.</p>
+<p><img src="http://googleusercontent.com/image_generation_content/2" alt="A diagram showing a malicious user exploiting a dangling CNAME record to take over a subdomain."></p>
+<h3>Vulnerability 3: The Threat of DNS Cache Poisoning</h3>
+<p>An attacker can &quot;poison&quot; a DNS server's cache to redirect users from your legitimate site to a phishing site. While you can't always prevent this, <em>understanding</em> the threat is critical. If users report that your site looks &quot;phishy&quot; but you can't reproduce it, a security-aware pro would add DNS poisoning to their list of possible causes.</p>
+<blockquote>
+<p><strong>The AppSec Takeaway:</strong> To a developer, <strong>DNS</strong> is a simple signpost. To a security professional, it’s a public announcement of your tech stack, a map of potential attack surfaces, and a vector for misdirection. Knowing its weaknesses is fundamental to seeing the bigger security picture.</p>
+</blockquote>
+<hr>
+<h2>From Developer to Defender</h2>
+<p>Ultimately, learning these networking concepts does more than add tools to your kit; it changes your perspective. Seeing how the <strong>OSI model</strong> pinpoints failure and how <strong>DNS</strong> can be a roadmap for an attacker is fundamental to the daily work of securing applications.</p>
+<p>Your developer background isn't a past life; it's your primary advantage in the trenches of application security. It gives you the unique ability to see systems as both a builder and a breaker. Keep that builder's mindset, stay hands-on, and never stop inspecting the layers underneath the code.</p>
+<div class="newsletter-cta">
+    <h3>Tired of dense security articles written for CISOs instead of developers?</h3>
+    <p>My newsletter, <strong>The Pull Request</strong>, is different. It's a "short and sweet" weekly email designed for busy, security-curious developers who want to write more secure code.</p>
+    <p>Each week you'll get <strong>one single, actionable takeaway</strong>, like a "Fix This Commit" showing a common vulnerability and its secure fix, a "Tool Tip in Two Minutes" for an easy-to-use security tool, or the one key action item you need to know about a recent vulnerability. No abstract theory, just practical advice to help you build things securely.</p>
+    <a href="https://your-newsletter-link.com" class="cta-button" target="_blank" rel="noopener noreferrer">Join "The Pull Request" and get the next issue!</a>
+</div>
+
+      
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-column">
+    <div class="footer-logo">
+      <a href="/" class="logo-link" aria-label="Back to Homepage">
+        <span>CorruptCache.me</span>
+      </a>
+      <p>Application Security Engineer & Software Developer</p>
+    </div>
+  </div>
+  <div class="footer-column">
+    <nav aria-label="Footer Sitemap">
+      <h4>Sitemap</h4>
+      <ul class="sitemap-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/resume">Resume</a></li>
+        <li><a href="/my_work">Work</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/gallery">Photos</a></li>
+        <li><a href="/media-log">Media</a></li>
+        <li><a href="/newsletter-archives">Newsletter</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-column">
+    <div class="footer-socials">
+      <a href="https://github.com/corruptcache" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>corruptcache</span>
+      </a>
+      <a href="https://linkedin.com/in/andrew-knowles" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        <span>Andrew Knowles</span>
+      </a>
+    </div>
+    <a href="mailto:you@example.com" class="footer-contact-link" aria-label="Email Andrew Knowles">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+      <span>you@example.com</span>
+    </a>
+  </div>
+</footer>
+
+
+  <script src="/js/matrix.js" defer></script>
+</body>
+</html>
