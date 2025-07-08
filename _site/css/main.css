@@ -155,14 +155,14 @@ main > section:last-of-type {
   margin-bottom: 0;
 }
 
-footer {
+.site-footer {
   max-width: 960px;
   margin: 2rem auto 0;
   position: relative;
   font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: baseline;
   flex-wrap: wrap;
   gap: 2rem;
   border-top: 1px solid #333;
