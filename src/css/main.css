@@ -248,6 +248,7 @@ footer a:hover {
   border: 1px solid #333;
   border-radius: 8px;
   padding: 2.5rem 2rem 2rem;
+  margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
   animation: flicker 0.15s infinite;
@@ -398,6 +399,15 @@ h4 {
   50% {
     background-color: currentColor;
   }
+}
+
+/* --- BLOG POST STYLES --- */
+.post-article img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
 }
 
 #hero-button {
@@ -979,6 +989,34 @@ aside {
 
 .sidebar-list a:hover {
     text-decoration: underline;
+}
+
+.post-excerpt {
+    margin-bottom: 1.5rem;
+}
+
+.post-tags {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-badge {
+  display: inline-block;
+  background-color: #333;
+  color: #e0e0e0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag-badge:hover {
+  background-color: #a66bff;
+  color: #0f0f0f;
+  text-decoration: none;
 }
 
 /* --- BLOG POST SPECIFIC STYLES --- */

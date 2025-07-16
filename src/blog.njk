@@ -17,6 +17,13 @@ permalink: /blog/index.html
         {% if post.data.description %}
           <p class="post-excerpt">{{ post.data.description }}</p>
         {% endif %}
+        {% if post.data.tags %}
+          <div class="post-tags">
+            {% for tag in post.data.tags %}
+              <a href="/tags/{{ tag | slugify }}/" class="tag-badge">{{ tag }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
         <a href="{{ post.url }}" class="cta-button">Read More &rarr;</a>
       </article>
     {% endfor %}

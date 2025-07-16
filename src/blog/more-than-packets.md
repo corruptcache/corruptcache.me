@@ -1,8 +1,9 @@
 ---
 layout: layouts/post.njk
 title: "More Than Packets: How the Network+ Made Me a Better Application Security Engineer"
+description: "A deep dive into how understanding networking fundamentals with the CompTIA Network+ certification can transform a developer into a more effective Application Security Engineer."
 date: 2025-07-08
-image: http://googleusercontent.com/image_generation_content/0
+image: /assets/images/more-than-packets-hero.png
 image_alt: "An abstract network grid with glowing data packets, representing the complexity of network layers."
 permalink: /blog/more-than-packets/
 tags:
@@ -14,9 +15,9 @@ tags:
 
 The emergency Slack channel explodes. The application is lagging, alerts are firing, and the blame game begins. The developers swear the build is solid: "It worked in staging! It has to be the network." The network admins fire back from their own dashboards: "Our metrics are green. It has to be the code."
 
-This tug-of-war is an industry cliché for a reason. I remember the feeling well from [my own start in tech](/about). When I was earning my full-stack certificate in 2018, [deploying a project](/my_work) was an exercise in faith. I knew just enough about IP addresses and DNS to get an app live, but the actual mechanics were a mystery. It’s a common rite of passage for developers to treat the network as a utility—a black box that just works. In Application Security, however, that black box isn't just a gap in knowledge. It's a gaping hole in our defenses.
+This tug-of-war is an industry cliché for a reason. I remember the feeling well from [my own start in tech](/about). When I was earning my full-stack certificate in 2018, deploying a project was an exercise in faith. I knew just enough about IP addresses and DNS to get an app live, but the actual mechanics were a mystery. It’s a common rite of passage for developers to treat the network as a utility—a black box that just works. In Application Security, however, that black box isn't just a gap in knowledge. **It's a gaping hole in our defenses.**
 
-So, I decided it was time to fill that gap. I challenged myself with the CompTIA Network+ certification. After weeks of studying and applying the concepts by rebuilding my own home network from scratch, I passed it on my first try. The real prize wasn't the certificate, though. It was the powerful new lens it gave me to see risk. It taught me that the roots of many application vulnerabilities aren't in the code, but in the network it trusts.
+So, I decided it was time to fill that gap. I challenged myself with the CompTIA Network+ certification. After weeks of studying and applying the concepts by rebuilding [my own home network from scratch](/my_work), I passed it on my first try. The real prize wasn't the certificate, though. It was the powerful new lens it gave me to see risk. It taught me that the roots of many application vulnerabilities aren't in the code, but in the network it trusts.
 
 So, let's break down the key concepts I stole from the Net+ syllabus—and how you can use them to become a more effective [Application Security Engineer](/resume).
 
@@ -32,9 +33,9 @@ The key is to use it as a map to answer one critical question: **Where is the pr
 
 Imagine your application can't reach a critical API. Instead of guessing, you use the **OSI model** to troubleshoot logically from top to bottom.
 
-![A diagram of the 7 layers of the OSI model, from Application down to Physical.](http://googleusercontent.com/image_generation_content/1)
+![A diagram of the 7 layers of the OSI model, from Application down to Physical.](/assets/images/osi-model.png)
 
-#### Step 1: Is It My Fault? (Layer 7 - Application)
+#### Step 1:  Check Your Own House First  (Layer 7 - Application)
 * **Action:** Use a tool like `curl` to make a direct request to the API endpoint.
     ```bash
     curl https://api.example.com/v1/status

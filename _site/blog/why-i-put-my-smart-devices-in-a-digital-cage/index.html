@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I Put My Smart Devices in a Digital Cage: My Homelab Build | CorruptCache.me</title>
+  <meta name="description" content="A detailed walkthrough of building a home lab to reclaim data privacy and digital ownership, moving from a pile of salvaged parts to a full-fledged digital fortress with VLANs, OPNsense, and self-hosted services.">
+  <meta property="og:title" content="Why I Put My Smart Devices in a Digital Cage: My Homelab Build | CorruptCache.me">
+  <meta property="og:description" content="A detailed walkthrough of building a home lab to reclaim data privacy and digital ownership, moving from a pile of salvaged parts to a full-fledged digital fortress with VLANs, OPNsense, and self-hosted services.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://corruptcache.me/blog/why-i-put-my-smart-devices-in-a-digital-cage/">
+  <meta property="og:image" content="/assets/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why I Put My Smart Devices in a Digital Cage: My Homelab Build | CorruptCache.me">
+  <meta name="twitter:description" content="A detailed walkthrough of building a home lab to reclaim data privacy and digital ownership, moving from a pile of salvaged parts to a full-fledged digital fortress with VLANs, OPNsense, and self-hosted services.">
+  <meta name="twitter:image" content="/assets/social-preview.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|VT323&display=swap" rel="stylesheet">
+  <script defer src="/js/main.js"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Andrew Knowles",
+      "url": "https://corruptcache.me/",
+      "sameAs": [
+        "https://github.com/corruptcache",
+        "https://www.linkedin.com/in/corruptcache/"
+      ],
+      "jobTitle": "Application Security Engineer",
+      "image": "/assets/social-preview.png"
+    }
+  </script>
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+  
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo-link" aria-label="Back to Homepage">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke="#a66bff" stroke-width="1.5" />
+        <circle cx="12" cy="12" r="2" stroke="#a66bff" stroke-width="1.5" />
+        <path d="M7 8L10 13L12 11L15 16L17 14" stroke="#a66bff" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <span>CorruptCache.me</span>
+    </a>
+    <ul>
+      <li><a href="/about" class="">About</a></li>
+      <li><a href="/resume" class="">Resume</a></li>
+      <li><a href="/my_work" class="">Work</a></li>
+      <li><a href="/blog" class="">Blog</a></li>
+      <li><a href="/newsletter-archives" class="">Newsletter</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<main class="container">
+  <article class="terminal-window post-article">
+      <h1>Why I Put My Smart Devices in a Digital Cage: My Homelab Build</h1>
+      <p class="post-meta">Published on July 12, 2025 by Andrew Knowles</p>
+
+      
+
+      <p>You don't own your digital media. What you paid for is just a rental agreement with an expiration date they don't tell you about. The <a href="https://www.stopkillinggames.com/" target="_blank" rel="noopener noreferrer">&quot;Stop Killing Games&quot; movement</a> is a perfect example of this growing frustration, a feeling we saw again when Sony announced it would be removing purchased Discovery content from users' PlayStation libraries.</p>
+<p>But this problem goes deeper than software. The hardware in our homes is actively working against us. Your smart TV, for instance, is a spy. It's not paranoia; it's the business model. Using tech like Automatic Content Recognition (ACR), it fingerprints everything you watch and sells that data to advertisers. The FBI has even warned that hackers can take over its camera and microphone.</p>
+<p>I was tired of it—tired of paying for products that work against my interests and feeling like I didn't truly own my data or my own network. After watching one too many YouTube videos of other people's slick home lab setups, I decided to stop watching and start building.</p>
+<p>It didn't start with a clean server rack. My journey began with a head-first dive into the rabbit hole, armed with salvaged parts from a previous desktop build. It was a glorious mess—a half-broken PC case with a bird's nest of excess power supply wires sticking out. But it worked. It gave me a taste of real ownership, and I was hooked.</p>
+<p>That messy proof-of-concept sparked the plan for a permanent solution. This post is the story of moving from that pile of salvaged parts to a <a href="/my_work/" target="_blank" rel="noopener noreferrer">full-fledged digital fortress</a>. I'm going to show you exactly why—and how—I put my smart devices in a digital cage.</p>
+<h2>The Gear: Hardware Breakdown</h2>
+<p>A fortress needs strong walls and a smart gatekeeper. Here are the core components I chose for the build, focusing on their role in the system.</p>
+<ul>
+<li>
+<p><strong>Firewall / Router: The Brain</strong></p>
+<ul>
+<li><strong>Model:</strong> Topton N100 Fanless Mini PC (4x 2.5GbE Intel i226-V LAN)</li>
+<li><strong>Role:</strong> This is the gatekeeper of the entire network, running dedicated firewall software. Unlike a consumer router, this gives me absolute control to build the &quot;digital cages&quot; (VLANs) and enforce strict rules about who talks to whom. It's the difference between a flimsy chain lock and a bank vault door.</li>
+</ul>
+</li>
+<li>
+<p><strong>Network Switch: The Central Nervous System</strong></p>
+<ul>
+<li><strong>Model:</strong> KeepLink 9-Port Multi-Gigabit Managed Switch (8x 2.5Gbps PoE+, 1x 10Gb SFP+)</li>
+<li><strong>Role:</strong> The key word here is &quot;Managed.&quot; This switch is what allows me to create and enforce the VLANs defined in the firewall. The PoE+ ports power devices like my access point without extra adapters, and the 10Gb SFP+ port acts as a high-speed backbone to my server, preventing bottlenecks.</li>
+</ul>
+</li>
+<li>
+<p><strong>DIY 4U Rack Server: The Workhorse</strong></p>
+<ul>
+<li><strong>Specs:</strong> AMD Ryzen 5 3600, 32GB RAM, 10TB Storage with a 10TB parity drive, 2TB NVMe cache, Intel Arc A380 GPU, and a Blu-ray drive.</li>
+<li><strong>Role:</strong> This is the heart of the lab, handling everything from media storage to running virtual machines for my security experiments. The Blu-ray drive is my commitment to true physical media ownership.</li>
+</ul>
+</li>
+<li>
+<p><strong>Wireless Access Point (WAP): The Recycled Guard</strong></p>
+<ul>
+<li><strong>Model:</strong> My old consumer router, now running in AP mode.</li>
+<li><strong>Role:</strong> A great way to save money. This repurposed router now serves as the dedicated WAP, broadcasting the various secure and insecure Wi-Fi networks for my different VLANs.</li>
+</ul>
+</li>
+<li>
+<p><strong>Server Rack &amp; Patch Panel: The Skeleton</strong></p>
+<ul>
+<li><strong>Model:</strong> VEVOR 12U Open Frame Server Rack &amp; a 24-port patch panel.</li>
+<li><strong>Role:</strong> These provide structure, airflow, and professional cable management. The patch panel might seem optional, but it turns a potential rat's nest of cables into a clean, labeled system that makes troubleshooting a thousand times easier.</li>
+</ul>
+</li>
+</ul>
+<h2>The Setup: Network Architecture &amp; Key Configurations</h2>
+<p>This is where the magic happens. The hardware is just a pile of parts until you define the architecture. My setup is built on the security principle of segmentation, using VLANs (Virtual Local Area Networks) to create separate, isolated networks for different types of devices.</p>
+<p><strong>Network Diagram</strong></p>
+<p><em>(A diagram showing the different VLANs and how devices connect.)</em></p>
+<h3>Firewall Software: OPNsense - The Rulebook for the Fortress</h3>
+<p>For the brain of my network, a standard consumer router's firmware wasn't going to cut it. I needed granular control. I chose OPNsense, a professional-grade, open-source firewall and routing platform based on FreeBSD. While pfSense is another popular option, I was drawn to OPNsense's modern user interface and its strong focus on security with frequent, consistent updates. It gives me the power to build the &quot;digital cages&quot; exactly how I want, with no compromises.</p>
+<p>The core of the setup involves two key steps inside OPNsense:</p>
+<p><strong>1. Creating the VLANs:</strong></p>
+<p>First, I defined the virtual networks. Under <code>Interfaces &gt; Other Types &gt; VLAN</code>, I created three separate networks, each with a unique numeric tag:</p>
+<ul>
+<li>VLAN 10 - TRUSTED</li>
+<li>VLAN 20 - IOT</li>
+<li>VLAN 30 - LAB</li>
+</ul>
+<p>Each VLAN was then assigned to its own logical interface, which lets OPNsense treat it like a separate physical network port. I then enabled a DHCP server for each one to hand out IP addresses to devices.</p>
+<p><strong>2. Crafting the Firewall Rules:</strong></p>
+<p>This is where you enforce the separation. In OPNsense, firewall rules are processed from top to bottom on each interface, and the first rule that matches a packet wins. My philosophy is simple: Block by default, then explicitly allow only what is necessary.</p>
+<p>Here’s a simplified look at the rules for the IoT VLAN (The Cage), which is the most critical:</p>
+<ul>
+<li>
+<p><strong>Rule 1: Block Access to Other Local Networks</strong></p>
+<ul>
+<li><strong>Action:</strong> Block</li>
+<li><strong>Source:</strong> IOT net (This is an alias for all devices on the IoT VLAN)</li>
+<li><strong>Destination:</strong> Trusted net and LAB net</li>
+<li><strong>Description:</strong> This is the most important rule. It explicitly forbids any device on the IoT network from even trying to communicate with my trusted computers or my lab server. This is the wall of the cage.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rule 2: Allow DNS</strong></p>
+<ul>
+<li><strong>Action:</strong> Pass</li>
+<li><strong>Source:</strong> IOT net</li>
+<li><strong>Destination:</strong> This Firewall (specifically port 53 for DNS)</li>
+<li><strong>Description:</strong> This allows the smart devices to look up internet addresses (e.g., <a href="http://netflix.com" target="_blank" rel="noopener noreferrer">netflix.com</a>), which they need to function.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rule 3: Allow Internet Access</strong></p>
+<ul>
+<li><strong>Action:</strong> Pass</li>
+<li><strong>Source:</strong> IOT net</li>
+<li><strong>Destination:</strong> any</li>
+<li><strong>Description:</strong> This is the final rule that allows the IoT devices to connect to the outside internet for streaming and updates, but only after the first block rule has ensured they can't talk to anything else internally.</li>
+</ul>
+</li>
+</ul>
+<p>This setup ensures that even if a smart TV or other IoT device gets compromised, the attacker is trapped inside the cage and can't move laterally to attack my more important devices.</p>
+<h2>The Software Stack: Services Inside the Fortress</h2>
+<p>Hardware is only half the battle. The real power of a home lab comes from the software you run on it. My goal was to replace paid subscription services and take back control of my data, so my software choices reflect that.</p>
+<h3>The Server OS: UnRAID</h3>
+<ul>
+<li><strong>What it is:</strong> For the server's operating system, I chose UnRAID. It's a powerful and flexible OS designed for home servers, making it incredibly easy to manage storage, VMs, and Docker containers through a beginner-friendly web UI.</li>
+<li><strong>Why it matters:</strong> This is the foundation of the lab. Its standout feature is the parity-based storage array, which lets me mix and match hard drives of different sizes while still protecting my data against a single drive failure. This flexibility was a huge plus for a home lab build. It also provides a simple, powerful interface for managing my Docker containers and VMs, making it the perfect all-in-one solution.</li>
+</ul>
+<h3>The Container Engine: Docker</h3>
+<ul>
+<li><strong>What it is:</strong> Within UnRAID's UI, I run Docker. It lets me package applications and their dependencies into lightweight, portable containers. UnRAID's &quot;Community Apps&quot; plugin was a game-changer here. It's essentially a curated app store of pre-made templates for popular Docker applications. Since this was my first time working with Docker, the Community Apps feature was invaluable for getting started quickly without having to write complex configuration files from scratch.</li>
+<li><strong>Why it matters:</strong> Instead of installing dozens of apps directly on an OS, which can lead to conflicts and clutter, each service runs in its own isolated container. It's cleaner, more secure, and makes updating or removing services trivial.</li>
+</ul>
+<h3>File Sharing: SMB and NFS</h3>
+<ul>
+<li><strong>What it is:</strong> UnRAID's UI makes setting up file shares incredibly simple. I use both SMB (the native Windows file sharing protocol) and NFS (the native Linux/Unix file sharing protocol) for different purposes.</li>
+<li><strong>Why it matters:</strong> This dual-protocol approach provides the best of both worlds. I use SMB shares for easy, drag-and-drop access from my Windows and macOS devices on the Trusted VLAN. This is perfect for general file storage. I use NFS shares for my Linux-based Docker containers and VMs. NFS is generally more performant for Linux-to-Linux communication, making it ideal for high-speed access to media libraries for Jellyfin or configuration data for other services.</li>
+</ul>
+<h3>Remote Access: SSH</h3>
+<ul>
+<li><strong>What it is:</strong> For managing my server, which I've named &quot;Exodia,&quot; I rely on SSH (Secure Shell). It's the standard for secure command-line access to a server that's running &quot;headless&quot; (without a dedicated monitor or keyboard).</li>
+<li><strong>Why it matters:</strong> This is how I perform maintenance, check logs, and run commands on Exodia from my main computer. For security, I've disabled password-based logins entirely, opting for key-based authentication only. My firewall rules ensure that SSH access (on port 22) is only allowed from my TRUSTED VLAN to my LAB VLAN, completely blocking any attempts from the less secure IoT network.</li>
+</ul>
+<h3>The Core Services:</h3>
+<ul>
+<li><strong>Jellyfin (Media Server):</strong> This is my self-hosted Netflix. I use the server's Blu-ray drive to rip my physical media, and Jellyfin organizes it into a beautiful library that I can stream to any device on my network—with no monthly fee and no risk of the content disappearing.</li>
+<li><strong>AdGuard Home (Network-Wide Ad Blocker):</strong> This is one of the biggest quality-of-life improvements. Instead of a separate device, I run AdGuard Home directly on my OPNsense firewall. It acts as a DNS sinkhole, blocking ads and trackers for every single device on my network at the source. It even stops most ads on my smart TV.</li>
+<li><strong>Vaultwarden (Password Manager):</strong> Instead of trusting a third-party company with all my passwords, I run Vaultwarden—a self-hosted server compatible with Bitwarden clients. My passwords stay on my hardware.</li>
+<li><strong>Nextcloud (Personal Cloud):</strong> This is my replacement for Google Drive/Dropbox. It's a full-featured file hosting and collaboration platform that gives me total ownership of my personal files.</li>
+</ul>
+<h2>The Payoff: Challenges &amp; Lessons Learned</h2>
+<p>No project like this is ever a straight line. The real learning doesn't come from when things work; it comes from when they break. Here are a few key takeaways from the trenches.</p>
+<ul>
+<li>
+<p><strong>The Headache: VLAN Tagging is a Three-Body Problem.</strong> In theory, VLANs are simple. In practice, getting the firewall (OPNsense), the managed switch (KeepLink), and the wireless access point to all speak the same language of 802.1q VLAN tags was a nightmare. The networking concepts I wrote about in my <a href="/blog/more-than-packets/" target="_blank" rel="noopener noreferrer">previous post on the Network+</a> really hit home here. Forgetting to set a switch port to &quot;tagged&quot; for the correct VLANs meant hours of troubleshooting why a device couldn't get an IP address. <strong>Lesson:</strong> Master how your specific hardware handles tagged vs. untagged traffic before you start.</p>
+</li>
+<li>
+<p><strong>The Stupid Mistake: I Locked Myself Out.</strong> Every network admin has done this at least once. I was creating a new &quot;block&quot; rule and, in my haste, made it too broad. I hit &quot;Apply&quot; and instantly lost access to the OPNsense web interface. My entire network was working, but the gatekeeper had locked me out of its own control room.<br>
+<strong>Lesson:</strong> Always have a &quot;Do Not Lockout&quot; rule at the very top of your firewall rules that guarantees access from a specific trusted IP. And keep a monitor and keyboard handy to plug directly into your firewall box for when you inevitably ignore that first lesson.</p>
+</li>
+<li>
+<p><strong>The &quot;Aha!&quot; Moment: The Ping of Success.</strong> The first time I connected my smart TV to the &quot;IoT&quot; Wi-Fi, got it working, and then tried to ping my main computer from a device on that network... and saw <code>Request timed out</code>... that was everything. It wasn't a theoretical diagram anymore. It was a working cage. I had tangible proof that my rules were working and my trusted devices were protected.</p>
+</li>
+</ul>
+<p>Reading about network theory is one thing. Nothing teaches you faster than breaking your own network at 11 PM on a Tuesday and having no one to blame but yourself.</p>
+<h2>Conclusion: Take Back Your Network</h2>
+<p>This project was about more than just building a server; it was about taking back control. By building this digital fortress, I've not only shielded my personal data from prying eyes but also created an invaluable sandbox. This lab is where I test security tools, break applications, and practice incident response—skills that are critical in the AppSec field and that you can't learn from a textbook.</p>
+<p>You don't need a 12U rack to get started. The most powerful tool I used was a repurposed desktop PC from years ago. Start there. Grab an old laptop or a Raspberry Pi, install OPNsense or AdGuard Home, and start segmenting your network. The hands-on experience you'll gain from defending your own network is the most effective way to build real-world security skills.</p>
+
+      
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-column">
+    <div class="footer-logo">
+      <a href="/" class="logo-link" aria-label="Back to Homepage">
+        <span>CorruptCache.me</span>
+      </a>
+      <p>Application Security Engineer & Software Developer</p>
+    </div>
+  </div>
+  <div class="footer-column">
+    <nav aria-label="Footer Sitemap">
+      <h4>Sitemap</h4>
+      <ul class="sitemap-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/resume">Resume</a></li>
+        <li><a href="/my_work">Work</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/gallery">Photos</a></li>
+        <li><a href="/media-log">Media</a></li>
+        <li><a href="/newsletter-archives">Newsletter</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-column">
+    <div class="footer-socials">
+      <a href="https://github.com/corruptcache" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>corruptcache</span>
+      </a>
+      <a href="https://linkedin.com/in/andrew-knowles" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        <span>Andrew Knowles</span>
+      </a>
+    </div>
+    <a href="mailto:you@example.com" class="footer-contact-link" aria-label="Email Andrew Knowles">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+      <span>you@example.com</span>
+    </a>
+  </div>
+</footer>
+
+
+  <script src="/js/matrix.js" defer></script>
+</body>
+</html>

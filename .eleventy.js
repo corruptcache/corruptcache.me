@@ -1,6 +1,22 @@
 const { DateTime } = require("luxon");
+const markdownIt = require("markdown-it");
+const markdownItLinkAttributes = require("markdown-it-link-attributes");
 
 module.exports = function(eleventyConfig) {
+  // Customize Markdown library to open external links in a new tab
+  const markdownLib = markdownIt({
+    html: true,
+    breaks: true,
+    linkify: true
+  }).use(markdownItLinkAttributes, {
+        pattern: /^(https?:\/\/|www\.)/,
+    attrs: {
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    }
+  });
+  eleventyConfig.setLibrary("md", markdownLib);
+
   // Create a dedicated collection for blog posts
   eleventyConfig.addCollection("blog", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/blog/**/*.md");
@@ -52,11 +68,9 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(format);
   });
   // Copy static files
-  eleventyConfig.addPassthroughCopy({
-    "src/assets": "/assets",
-    "src/css": "/css",
-    "src/js": "/js"
-  });
+  eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
+  eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/js");
 
   // Watch for changes in these directories
   eleventyConfig.addWatchTarget("src/css/");

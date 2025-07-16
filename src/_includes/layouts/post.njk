@@ -7,7 +7,7 @@ layout: base.njk
 <main class="container">
   <article class="terminal-window post-article">
       <h1>{{ title }}</h1>
-      <p class="post-meta">Published on {{ page.date | date("%B %d, %Y") }} by Andrew Knowles</p>
+      <p class="post-meta">Published on {{ page.date | date("MMMM d, yyyy") }} by Andrew Knowles</p>
 
       {% if image %}
       <img src="{{ image }}" alt="{{ image_alt }}" class="post-image">
