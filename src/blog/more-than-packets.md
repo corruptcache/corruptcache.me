@@ -19,7 +19,7 @@ This tug-of-war is an industry cliché for a reason. I remember the feeling well
 
 So, I decided it was time to fill that gap. I challenged myself with the CompTIA Network+ certification. After weeks of studying and applying the concepts by rebuilding [my own home network from scratch](/my_work), I passed it on my first try. The real prize wasn't the certificate, though. It was the powerful new lens it gave me to see risk. It taught me that the roots of many application vulnerabilities aren't in the code, but in the network it trusts.
 
-So, let's break down the key concepts I stole from the Net+ syllabus—and how you can use them to become a more effective [Application Security Engineer](/resume).
+So, let's break down the key concepts I stole from the Net+ syllabus—and how you can use them to become a more effective [Application Security Engineer](/resume){target="_blank" rel="noopener noreferrer"}.
 
 ---
 
