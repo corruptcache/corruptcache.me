@@ -742,6 +742,166 @@ h4 {
   }
 }
 
+/* Case Studies Grid */
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.case-study-card {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-card:not(.placeholder-card) {
+  animation: glitch-light 5s infinite linear;
+}
+
+.case-study-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(166, 107, 255, 0.2);
+  border-color: #a66bff;
+}
+
+.placeholder-card {
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1a1a,
+    #1a1a1a 10px,
+    #1a0a1a 10px,
+    #1a0a1a 20px
+  );
+  position: relative;
+  opacity: 0.9;
+  animation: placeholder-pulse 4s infinite ease-in-out;
+}
+
+.placeholder-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(166, 107, 255, 0.1) 0%, rgba(166, 107, 255, 0.05) 50%, rgba(166, 107, 255, 0.1) 100%);
+  z-index: 1;
+}
+
+.placeholder-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.coming-soon {
+  position: absolute;
+  top: 1.5rem;
+  right: -3rem;
+  background: #a66bff;
+  color: #0f0f0f;
+  padding: 0.3rem 3.5rem;
+  transform: rotate(45deg);
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
+  animation: glitch-heavy 2s infinite linear;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes placeholder-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+}
+
+.case-study-card h3 {
+  color: #a66bff;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.case-study-card p {
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+  background-color: #2a2a2a;
+  color: #a66bff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  border: 1px solid #3a3a3a;
+  transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+  background-color: #3a3a3a;
+  transform: translateY(-1px);
+}
+
+.case-study-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.case-study-links .cta-button {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+}
+
+.case-study-links .cta-button.secondary {
+  background-color: transparent;
+  border: 1px solid #a66bff;
+  color: #a66bff;
+}
+
+.case-study-links .cta-button.secondary:hover {
+  background-color: rgba(166, 107, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .case-studies-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-study-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
 @keyframes glitch-heavy {
 
   0%,
@@ -1301,5 +1461,110 @@ main.container {
     .photo-grid {
         column-count: 1;
     }
+}
+
+/* --- CONNECT SECTION --- */
+.connect-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.connect-text h2 {
+  color: #a66bff;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'VT323', monospace;
+}
+
+.connect-text p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #e0e0e0;
+}
+
+.connect-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.connect-links .cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2a2a2a;
+  border: 1px solid #a66bff;
+  color: #e0e0e0;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.connect-links .cta-button:hover {
+  background-color: #a66bff;
+  color: #0f0f0f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(166, 107, 255, 0.3);
+}
+
+.connect-links .cta-button svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.ascii-art {
+  color: #a66bff;
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  white-space: pre;
+  text-align: center;
+  margin: 0 auto;
+  animation: glitch-light 3s infinite linear;
+  letter-spacing: 0.5px;
+  transform: scale(1);
+  transform-origin: center;
+  min-width: 200px;
+}
+
+@media (min-width: 768px) {
+  .connect-content {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    gap: 3rem;
+    padding: 3rem 2rem;
+  }
+  
+  .ascii-art {
+    margin: 0 2rem 0 0;
+    flex-shrink: 0;
+    transform: scale(1.1);
+  }
+  
+  .connect-text {
+    flex-grow: 1;
+  }
+  
+  .connect-links {
+    justify-content: flex-start;
+  }
 }
 
