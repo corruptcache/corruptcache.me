@@ -1,0 +1,21 @@
+{
+  "name": "CorruptCache.me",
+  "short_name": "CorruptCache",
+  "description": "Andrew Knowles - Application Security Engineer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#a66bff",
+  "icons": [
+    {
+      "src": "/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
