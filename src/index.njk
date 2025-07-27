@@ -92,24 +92,13 @@ description: The personal website and blog of Andrew Knowles, a software develop
   <section id="latest-posts" class="terminal-window">
     <h2>LATEST_POSTS: [FROM THE BLOG]</h2>
     <div class="blog-container">
+      {%- for post in collections.blog | reverse | limit(3) %}
       <div class="blog-card">
-        <h3>Post Title One: The Rise of AI</h3>
-        <p>An exploration into the rapid advancements in artificial intelligence and what it means for the future of
-          technology and society.</p>
-        <a href="#">Read More &rarr;</a>
+        <h3>{{ post.data.title }}</h3>
+        <p>{{ post.data.description }}</p>
+        <a href="{{ post.url }}">Read More &rarr;</a>
       </div>
-      <div class="blog-card">
-        <h3>Post Title Two: Linux Essentials</h3>
-        <p>A beginner's guide to navigating the Linux operating system, covering essential commands and concepts for
-          new users.</p>
-        <a href="#">Read More &rarr;</a>
-      </div>
-      <div class="blog-card">
-        <h3>Post Title Three: Cybersecurity Basics</h3>
-        <p>Understanding the fundamental principles of cybersecurity and how to protect your digital assets from
-          common threats.</p>
-        <a href="#">Read More &rarr;</a>
-      </div>
+      {%- endfor %}
     </div>
     <div class="view-all-container">
       <a href="/blog" class="cta-button">View All Posts</a>
