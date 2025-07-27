@@ -1,0 +1,101 @@
+---
+layout: base.njk
+permalink: /case-study/homelab/index.html
+title: Case Study - Secure Home Lab
+---
+
+<main class="container">
+  <div class="terminal-window">
+    <h2>[CASE_STUDY] Secure Home Lab & Network Segmentation</h2>
+
+    <div class="project">
+      <div class="project-header">
+        <h3>Project: Secure Home Lab & Media Server</h3>
+        <div class="project-links">
+          <a href="/blog/why-i-put-my-smart-devices-in-a-digital-cage/" target="_blank" rel="noopener noreferrer">Full Blog Post</a>
+        </div>
+      </div>
+      <p>A comprehensive home lab built to reclaim data ownership from subscription services and create a secure, segmented network for IoT devices and security experiments.</p>
+      <div class="tech-stack">
+        <span class="tech-stack-item">OPNsense</span>
+        <span class="tech-stack-item">UnRAID</span>
+        <span class="tech-stack-item">Docker</span>
+        <span class="tech-stack-item">VLANs</span>
+        <span class="tech-stack-item">Jellyfin</span>
+        <span class="tech-stack-item">Unbound DNS</span>
+      </div>
+      
+      <div class="case-study">
+          <h4>The Problem: The Unseen Risk of a Flat Network</h4>
+          <p>Consumer-grade networks are typically "flat," meaning all devices—laptops, phones, smart TVs, and IoT gadgets—exist on the same trusted network. This poses a significant security risk: a single compromised, low-security device (like a smart TV) can act as a beachhead for an attacker to move laterally and compromise high-value targets like a personal computer or file server.</p>
+      </div>
+
+      <div class="case-study">
+          <h4>The Solution: Network Segmentation with VLANs</h4>
+          <p>I implemented a multi-VLAN architecture using OPNsense on a dedicated fanless PC. The network is segmented into four primary zones:</p>
+          <ul>
+              <li><strong>TRUSTED (VLAN 10):</strong> For personal computers and trusted devices.</li>
+              <li><strong>IOT (VLAN 20):</strong> A "digital cage" for smart TVs, cameras, and other untrusted IoT devices.</li>
+              <li><strong>GUEST (VLAN 30):</strong> A completely isolated network for visitors, providing internet access only with no access to any internal resources.</li>
+              <li><strong>LAB (VLAN 40):</strong> An isolated sandbox for the UnRAID server, security experiments, and running vulnerable applications. While mostly isolated, it allows specific inbound access from the Trusted network for management.</li>
+          </ul>
+           <p>To simplify the firewall rules, I created a single alias called `InternalNetworks` that groups all of these private VLANs together. This allows me to create a single, efficient rule to block a network like `GUEST` from all internal resources, rather than creating multiple redundant rules.</p>
+           <p>The core of this defense is a set of strict firewall rules. The default rule is to block all inter-VLAN traffic. I then add specific 'allow' rules on top of that. For example, the IoT and Guest networks are blocked from accessing any other internal network, while the Trusted network is explicitly allowed to access the Lab network for server management and file sharing. This containment strategy ensures that even if an IoT device is compromised, the blast radius is limited to its own isolated segment.</p>
+      </div>
+      
+      <div class="case-study visual-evidence">
+          <h4>Visual Evidence</h4>
+          <p>Network Architecture Diagram:</p>
+          <pre>
+  [ Internet ]
+       |
+       | (WAN)
++--------------------+
+| [ OPNsense FW/R ]  |
++--------------------+
+       | (LAN Trunk: VLANs 10,20,30,40)
+       |
++--------------------+
+| [ Managed Switch ] |
++--------------------+
+  |        |        |        |
+  |        |        |        | (Access Port: VLAN 40)
+  |        |        |        +---> [ UnRAID Server ]
+  |        |        |
+  |        |        | (Trunk Port)
+  |        |        +------------> [ Wireless AP ]
+  |        |                         |-- SSID: FBI surveillance van (VLAN 10 TRUSTED)
+  |        |                         |-- SSID: FBI surveillance van 7 (VLAN 20 IOT)
+  |        |                         '-- SSID: FBI surveillance van 3 (VLAN 30 GUEST)
+  |        |
+  |        | (Access Port: VLAN 20)
+  |        +-----------------------> [ Smart TV, Cameras, etc. ]
+  |
+  | (Access Port: VLAN 10)
+  +-------------------------------> [ PC, Laptop, Phone ]
+          </pre>
+          <p style="margin-top: 1.5rem;">OPNsense Firewall Rules for IoT VLAN (Simplified):</p>
+          <img src="/assets/images/homelab-firewall-rules.png" alt="A screenshot of the OPNsense firewall rules showing a block rule for inter-VLAN traffic and allow rules for DNS and Internet access.">
+      </div>
+      
+      <div class="case-study">
+          <h4>Key Learnings & Challenges</h4>
+          <ul>
+              <li><strong>VLAN Tagging Complexity:</strong> The primary challenge was ensuring consistent 802.1q VLAN tagging across three different pieces of hardware (OPNsense firewall, KeepLink managed switch, and a repurposed consumer router in AP mode). This required a deep understanding of tagged vs. untagged traffic on a per-port basis.</li>
+              <li><strong>Accidental Lockout:</strong> An early, overly broad firewall rule blocked access to the OPNsense web UI, effectively locking me out of the control plane. This incident reinforced the critical importance of creating a "Do Not Lockout" rule at the top of the ruleset to guarantee administrative access from a trusted IP.</li>
+              <li><strong>The "Aha!" Moment:</strong> The first time I connected a smart TV to the isolated "IoT" Wi-Fi and then tried to `ping` my main computer from another device on that same IoT network... and saw `Request timed out`... that was everything. It was no longer a theoretical diagram; it was a working digital cage. It was tangible proof that the firewall rules were working and my trusted devices were protected.</li>
+          </ul>
+      </div>
+      
+      <div class="case-study">
+          <h4>Future Improvements</h4>
+          <ul>
+              <li><strong>Intrusion Detection/Prevention:</strong> Implement Suricata or Snort on OPNsense to actively monitor for and block malicious traffic patterns.</li>
+              <li><strong>Centralized Logging (SIEM):</strong> Deploy a SIEM solution (e.g., Wazuh or a simple ELK stack) to aggregate and analyze logs from all network devices for more effective threat hunting.</li>
+          </ul>
+      </div>
+
+    </div>
+
+  </div>
+</main>

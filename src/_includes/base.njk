@@ -39,7 +39,9 @@
 </head>
 <body>
   <canvas id="matrix-canvas"></canvas>
+  {% include "components/nav.njk" %}
   {{ content | safe }}
+  {% include "components/footer.njk" %}
   <script src="/js/matrix.js" defer></script>
 </body>
 </html>

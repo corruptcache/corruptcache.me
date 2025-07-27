@@ -12,7 +12,7 @@
     <ul>
       <li><a href="/about" class="{% if page.url === '/about/' %}active{% endif %}">About</a></li>
       <li><a href="/resume" class="{% if page.url === '/resume/' %}active{% endif %}">Resume</a></li>
-      <li><a href="/my_work" class="{% if page.url === '/my_work/' %}active{% endif %}">Work</a></li>
+      <li><a href="/case-study" class="{% if page.url.startsWith('/case-study/') %}active{% endif %}">Case Studies</a></li>
       <li><a href="/blog" class="{% if page.url === '/blog/' %}active{% endif %}">Blog</a></li>
       <li><a href="/newsletter-archives" class="{% if page.url === '/newsletter-archives/' %}active{% endif %}">Newsletter</a></li>
     </ul>
