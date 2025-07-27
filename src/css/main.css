@@ -525,10 +525,11 @@ h4 {
     flex-basis: 250px;
 }
 .cat-card img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
     border-radius: 8px;
     border: 1px solid #333;
-    max-width: 100%;
-    height: auto;
     display: block;
 }
 .cat-card figcaption {
