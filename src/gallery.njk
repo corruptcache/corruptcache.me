@@ -1,363 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VISUAL_LOG | CorruptCache</title>
-  <link rel="stylesheet" href="/css/main.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
-  <style>
-    /* Global Resets and Basic Setup */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+---
+layout: "base.njk"
+title: "VISUAL_LOG | CorruptCache"
+---
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      color: #e0e0e0;
-      font-family: 'Share Tech Mono', monospace;
-      background-color: #0f0f0f;
-      overflow-x: hidden;
-    }
-    
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    /* --- PROFILE HEADER --- */
-    .profile-header {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        padding: 2rem;
-        border-bottom: 1px solid #333;
-        margin-bottom: 2rem;
-    }
-    .profile-avatar a {
-        display: block;
-    }
-    .profile-avatar img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 2px solid #a66bff;
-        transition: filter 0.2s ease-in-out;
-    }
-    .profile-avatar a:hover img {
-        filter: drop-shadow(0 0 5px #a66bff);
-    }
-    .profile-info {
-        font-family: 'VT323', monospace;
-    }
-    .profile-info h1 {
-        font-size: 2.5rem;
-        color: #e0e0e0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    .profile-info h1 a {
-        color: inherit;
-        text-decoration: none;
-        transition: text-shadow 0.2s ease-in-out;
-    }
-    .profile-info h1 a:hover {
-        text-shadow: 0 0 5px #a66bff;
-    }
-    .verified-badge {
-        width: 28px;
-        height: 28px;
-        fill: #a66bff;
-        animation: badge-glitch 2s infinite linear;
-    }
-    @keyframes badge-glitch {
-        0%, 100% { transform: translate(0, 0); }
-        25% { transform: translate(-1px, 1px); }
-        50% { transform: translate(1px, -1px); }
-        75% { transform: translate(-1px, 1px) skew(-3deg); }
-    }
-    .profile-stats {
-        display: flex;
-        gap: 2rem;
-        margin-top: 1rem;
-        font-size: 1.2rem;
-    }
-    .profile-stats span {
-        color: #a66bff;
-        font-weight: bold;
-    }
-    .profile-bio {
-        margin-top: 1.5rem;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #c5c5c5;
-    }
-    .profile-bio a {
-        color: #a66bff;
-        text-decoration: none;
-        transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
-    }
-    .profile-bio a:hover {
-        color: #e0e0e0;
-        text-shadow: 0 0 3px #a66bff;
-    }
-
-    /* --- PHOTO GRID --- */
-    .photo-grid {
-        column-count: 3;
-        column-gap: 1rem;
-    }
-    .photo-item {
-        margin-bottom: 1rem;
-        display: inline-block;
-        width: 100%;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        border-radius: 8px;
-    }
-    .photo-item img {
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: transform 0.3s ease, filter 0.3s ease;
-    }
-    .photo-item:hover img {
-        transform: scale(1.05);
-        filter: brightness(0.8);
-    }
-    .photo-item .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        font-size: 1.2rem;
-        text-align: center;
-        padding: 1rem;
-    }
-    .photo-item:hover .overlay {
-        opacity: 1;
-    }
-
-    /* --- LIGHTBOX --- */
-    .lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 3000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-    }
-    .lightbox.active {
-        opacity: 1;
-        pointer-events: all;
-    }
-    .lightbox-content {
-        max-width: 90vw;
-        max-height: 90vh;
-        position: relative;
-    }
-    .lightbox-content img {
-        max-width: 100%;
-        max-height: 80vh;
-        display: block;
-        border-radius: 8px;
-    }
-    .lightbox-caption {
-        color: white;
-        text-align: center;
-        margin-top: 1rem;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1.1rem;
-    }
-    .lightbox-close {
-        position: absolute;
-        top: -40px;
-        right: -20px;
-        color: white;
-        font-size: 3rem;
-        cursor: pointer;
-        font-family: 'VT323', monospace;
-        background: none;
-        border: none;
-    }
-    
-    /* --- RESPONSIVE DESIGN --- */
-     @media (max-width: 960px) {
-        .photo-grid {
-            column-count: 2;
-        }
-     }
-     @media (max-width: 768px) {
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-        }
-        .profile-stats {
-            justify-content: center;
-        }
-     }
-     @media (max-width: 500px) {
-        .photo-grid {
-            column-count: 1;
-        }
-     }
-  </style>
-</head>
-<body class="bg-gray-900">
-
-  <div class="main-container">
+<div class="gallery-container">
     <header class="profile-header">
         <div class="profile-avatar">
-            <a href="https://corruptcache.me" target="_blank" rel="noopener noreferrer" aria-label="Visit CorruptCache.me">
+            <a href="/" aria-label="CorruptCache Home">
                 <img src="https://placehold.co/150x150/0f0f0f/a66bff?text=CC" alt="CorruptCache profile avatar">
             </a>
         </div>
         <div class="profile-info">
             <h1>
-                <a href="https://corruptcache.me" target="_blank" rel="noopener noreferrer">corruptcache</a>
+                corruptcache
                 <svg class="verified-badge" viewBox="0 0 24 24" aria-label="Corrupted Verification Badge">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.3 14.3c.39.39.39 1.02 0 1.41-.39.39-1.02.39-1.41 0L12 13.41l-2.89 2.89c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L10.59 12 7.7 9.11c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0L12 10.59l2.89-2.89c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41L13.41 12l2.89 2.89z"></path>
                 </svg>
             </h1>
             <div class="profile-stats">
-                <p><span>42</span> posts</p>
+                <p><span>{{ gallery.length }}</span> posts</p>
                 <p><span>1337</span> followers</p>
                 <p><span>2600</span> following</p>
             </div>
-            <p class="profile-bio">
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">Andrew Knowles</a><br>
+            <div class="profile-bio">
+                <strong>Andrew Knowles</strong><br>
                 Software Developer | AppSec 🛡️<br>
                 Building & Breaking Code 💻<br>
                 Documenting travels ✈️📸
-            </p>
+            </div>
         </div>
     </header>
 
     <main class="photo-grid">
-        <div class="photo-item" data-caption="Downtown skyline at dusk. The city never sleeps.">
-            <img src="https://placehold.co/500x700/333/fff?text=Urban+Decay" alt="Placeholder image of a city skyline at dusk">
+        {# This loop will generate the gallery from your images folder #}
+        {% for image in gallery %}
+        <div class="photo-item" data-caption="{{ image.alt | capitalize }}">
+            <img src="{{ image.url }}" alt="{{ image.alt | capitalize }}">
             <div class="overlay">View Photo</div>
         </div>
-        <div class="photo-item" data-caption="Exploring the back alleys of Kyoto.">
-            <img src="https://placehold.co/500x400/333/fff?text=Kyoto+Alley" alt="Placeholder image of a narrow alley in Kyoto">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Minimalist architecture. Clean lines.">
-            <img src="https://placehold.co/500x600/333/fff?text=Architecture" alt="Placeholder image of a minimalist building">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Street style, captured.">
-            <img src="https://placehold.co/500x800/333/fff?text=Street+Style" alt="Placeholder image of a person in fashionable street wear">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Neon glow in a rainy night.">
-            <img src="https://placehold.co/500x500/333/fff?text=Neon+Rain" alt="Placeholder image of a neon sign reflected in a puddle">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Abandoned factory. Stories left untold.">
-            <img src="https://placehold.co/500x450/333/fff?text=Abandoned" alt="Placeholder image of an abandoned factory interior">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="The quiet of the forest.">
-            <img src="https://placehold.co/500x750/333/fff?text=Forest" alt="Placeholder image of tall trees in a forest">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Subway tunnels. A different kind of network.">
-            <img src="https://placehold.co/500x400/333/fff?text=Subway" alt="Placeholder image of a subway tunnel">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Coastal drive. The edge of the world.">
-            <img src="https://placehold.co/500x300/333/fff?text=Coastline" alt="Placeholder image of a road along a coastline">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Techwear details.">
-            <img src="https://placehold.co/500x650/333/fff?text=Techwear" alt="Placeholder image showing details of techwear clothing">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Rooftop views.">
-            <img src="https://placehold.co/500x550/333/fff?text=Rooftop" alt="Placeholder image of a view from a rooftop">
-            <div class="overlay">View Photo</div>
-        </div>
-        <div class="photo-item" data-caption="Data center hum.">
-            <img src="https://placehold.co/500x480/333/fff?text=Data+Center" alt="Placeholder image of server racks in a data center">
-            <div class="overlay">View Photo</div>
-        </div>
+        {% endfor %}
     </main>
-  </div>
+</div>
 
-  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog">
+{# This is the lightbox for viewing images #}
+<div id="lightbox" class="lightbox" aria-modal="true" role="dialog">
     <div class="lightbox-content">
         <button id="lightbox-close" class="lightbox-close" aria-label="Close image view">&times;</button>
         <img id="lightbox-img" src="" alt="">
         <div id="lightbox-caption" class="lightbox-caption"></div>
     </div>
-  </div>
+</div>
 
-  <script>
-    const photoItems = document.querySelectorAll('.photo-item');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxClose = document.getElementById('lightbox-close');
+{# The script to run the lightbox #}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const photoItems = document.querySelectorAll('.photo-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
 
-    photoItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const imgElement = item.querySelector('img');
-            const captionText = item.dataset.caption;
-            
-            lightboxImg.src = imgElement.src;
-            lightboxImg.alt = imgElement.alt; // Carry over alt text for accessibility
-            lightboxCaption.textContent = captionText;
-            lightbox.classList.add('active');
-        });
-    });
+        if (photoItems.length > 0 && lightbox) {
+            photoItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const imgElement = item.querySelector('img');
+                    const captionText = item.dataset.caption;
 
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        lightboxImg.src = ""; // Clear src to stop loading
-    }
+                    lightboxImg.src = imgElement.src;
+                    lightboxImg.alt = imgElement.alt;
+                    lightboxCaption.textContent = captionText;
+                    lightbox.classList.add('active');
+                });
+            });
 
-    lightboxClose.addEventListener('click', closeLightbox);
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                lightboxImg.src = ""; // Clear src to stop loading
+            }
 
-    // Close lightbox when clicking on the background overlay
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
+            if (lightboxClose) {
+                lightboxClose.addEventListener('click', closeLightbox);
+            }
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
         }
     });
-
-    // Close lightbox with the Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
-  </script>
-
-
-</body>
-</html>
+</script>
