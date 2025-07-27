@@ -1,7 +1,0 @@
-- name: Deploy
-  uses: TartanLlama/actions-eleventy@v1.3
-  with:
-    publish_dir: "_site"
-    publish_branch: "gh-pages"
-    github_token: ${{ secrets.PAT }}
-    cname: "corruptcache.me"
