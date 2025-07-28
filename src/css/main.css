@@ -65,8 +65,9 @@ body::after {
 .navbar {
   background-color: #0f0f0f;
   border-bottom: 1px solid #333;
+  position: -webkit-sticky; /* For Safari */
   position: sticky;
-  top: 4px; /* Offset for CRT bezel effect */
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -74,7 +75,36 @@ body::after {
   background-color: rgba(15, 15, 15, 0.9);
   width: 100%;
   padding: 1rem 0;
-  margin-top: -4px; /* Compensate for the top offset */
+  /* Ensure the sticky behavior works on mobile */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Adjust for CRT bezel effect on desktop */
+@media (min-width: 992px) {
+  .navbar {
+    top: 4px;
+    margin-top: -4px;
+  }
+}
+
+/* Ensure the body doesn't have overflow: hidden on mobile */
+@media (max-width: 991px) {
+  html, body {
+    overflow-x: hidden;
+    position: relative;
+    height: 100%;
+  }
+  
+  /* Make sure the navbar stays on top of other content */
+  .navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .navbar-inner {
@@ -96,20 +126,19 @@ body::after {
   color: #e0e0e0;
   text-decoration: none;
   font-family: 'VT323', monospace;
-  font-size: 2.5rem !important; /* Significantly increased size with !important */
+  font-size: 2rem; /* Set to 2rem as requested */
   z-index: 1002;
   line-height: 1;
   letter-spacing: 0.05em;
 }
 
 .logo-link span {
-  font-size: 1em !important; /* Ensure span inherits the larger size */
+  font-size: 2rem; /* Set explicit font size */
   position: relative;
   top: 1px; /* Minor vertical adjustment */
-}
-
-.logo-link span {
   transition: text-shadow 0.2s ease-in-out;
+  display: inline-block; /* Ensure consistent sizing */
+  line-height: 1;
 }
 
 .logo-link:hover span {
@@ -183,6 +212,8 @@ body::after {
   margin-left: auto;
   align-items: center;
   height: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .navbar ul {
@@ -233,6 +264,12 @@ body::after {
 
 /* Mobile Styles */
 @media (max-width: 991px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
   .hamburger {
     display: inline-block;
   }
@@ -245,11 +282,13 @@ body::after {
     max-width: 300px;
     height: 100vh;
     background-color: #0f0f0f;
-    padding: 6rem 2rem 2rem;
+    padding: 6rem 1.5rem 2rem;
     transition: right 0.3s ease-in-out;
     overflow-y: auto;
     z-index: 1001;
     border-left: 1px solid #333;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 4.5rem; /* Account for navbar height */
   }
   
   .nav-menu.active {
@@ -259,15 +298,25 @@ body::after {
   .navbar ul {
     flex-direction: column;
     gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
   
   .navbar li {
-    margin: 0.5rem 0;
+    width: 100%;
+    border-bottom: 1px solid #333;
+    margin: 0;
+    padding: 0;
   }
   
   .navbar a {
     display: block;
-    padding: 0.75rem 0;
+    padding: 1rem 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     color: #e0e0e0;
   }
   
