@@ -1,0 +1,130 @@
+/* src/css/components/_buttons.css */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6em 1.2em;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-normal);
+  background: none;
+  color: var(--primary-color);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Button variants */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--primary-color);
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: 0.3em 0.8em;
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  padding: 0.8em 1.6em;
+  font-size: 1.1rem;
+}
+
+/* Button hover/focus states */
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: darken(#a66bff, 10%);
+  border-color: darken(#a66bff, 10%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(166, 107, 255, 0.2);
+}
+
+.btn-outline:hover,
+.btn-outline:focus {
+  background-color: rgba(166, 107, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus {
+  background-color: rgba(166, 107, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Button with icon */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.btn-icon svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Button group */
+.btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: var(--spacing-sm) 0;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Button animations */
+@keyframes buttonPulse {
+  0% { box-shadow: 0 0 0 0 rgba(166, 107, 255, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(166, 107, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(166, 107, 255, 0); }
+}
+
+.btn-pulse {
+  animation: buttonPulse 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .btn-group {
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    flex: 1;
+  }
+}

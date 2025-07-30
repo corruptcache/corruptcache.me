@@ -1,0 +1,88 @@
+/* src/css/components/_terminal.css */
+.terminal-window {
+  background: var(--terminal-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 2.5rem 2rem 2rem;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.terminal-window::before {
+  content: '● ● ●';
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  color: #ff5f56;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 5px rgba(255, 95, 86, 0.5);
+}
+
+.terminal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  justify-content: center;
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.terminal-content {
+  font-family: var(--font-secondary);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.terminal-prompt {
+  color: var(--primary-color);
+  margin-right: 0.5em;
+}
+
+.terminal-command {
+  color: var(--secondary-color);
+}
+
+.terminal-output {
+  margin: 0.5em 0;
+  color: var(--text-color);
+}
+
+/* Terminal animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background: var(--primary-color);
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .terminal-window {
+    padding: 2rem 1.5rem 1.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .terminal-content {
+    font-size: 0.9rem;
+  }
+}

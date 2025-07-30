@@ -1,0 +1,114 @@
+/* src/css/pages/_home.css */
+.hero {
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.1;
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px rgba(166, 107, 255, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.4;
+}
+
+/* Featured section */
+.featured {
+  padding: var(--spacing-xl) 0;
+  background: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(10px);
+  margin: var(--spacing-xl) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: var(--spacing-sm) auto 0;
+}
+
+/* Recent posts */
+.recent-posts {
+  padding: var(--spacing-xl) 0;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+/* Call to action */
+.cta-section {
+  text-align: center;
+  padding: var(--spacing-xxl) 0;
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(15, 15, 15, 0.9) 100%);
+  margin: var(--spacing-xxl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.cta-description {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .cta-title {
+    font-size: 2rem;
+  }
+  
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+}
