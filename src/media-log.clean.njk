@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Log | CorruptCache</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    /* Page-specific styles */
+    .media-log {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .media-item {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background-color: rgba(26, 26, 26, 0.7);
+      border-radius: 8px;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      
+      #matrix-canvas,
+      body::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <div class="container">
+    <div class="terminal-window">
+      <header class="page-header">
+        <h1>Media Log</h1>
+        <p>My recent media consumption and thoughts</p>
+      </header>
+
+      <main class="media-log">
+        <!-- Media items will be dynamically inserted here -->
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Matrix effect code here
+  </script>
+</body>
+</html>

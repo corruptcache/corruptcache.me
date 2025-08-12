@@ -1,0 +1,225 @@
+<canvas id="matrix-canvas"></canvas>
+
+<!-- Sticky navigation bar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+      <a href="#" class="logo-link" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="#a66bff" stroke-width="1.5" />
+          <circle cx="12" cy="12" r="2" stroke="#a66bff" stroke-width="1.5" />
+          <path d="M7 8L10 13L12 11L15 16L17 14" stroke="#a66bff" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span>CorruptCache.me</span>
+      </a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="/resume" target="_blank" rel="noopener noreferrer">Resume</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#latest-posts">Blog</a></li>
+        <li><a href="/newsletter-archives">Newsletter</a></li>
+      </ul>
+  </div>
+</nav>
+
+<!-- Hero section with typing animation and live log -->
+<header class="hero">
+  <div id="terminal-prompt-container" class="terminal-window">
+    <pre id="terminal-prompt"><span id="ascii-title"></span>
+<span id="subtitle"></span>
+&gt; <span id="hero-button"></span><span class="cursor"></span></pre>
+  </div>
+  <div class="terminal-window hero-log-terminal">
+    <div id="live-log-container" role="log" aria-live="polite"></div>
+  </div>
+</header>
+
+<!-- Main content area -->
+<main>
+  <h1 class="sr-only">CorruptCache - Andrew Knowles's Application Security Portfolio and Blog</h1>
+  <section id="about">
+    <div class="about-text-container terminal-window">
+      <h2>USER_PROFILE: [BIO]</h2>
+      <div class="about-text">
+        <p>Every line of code is a potential doorway. To secure it, you have to understand it. I leverage my background in software engineering to specialize in application security. This site is my public commit log: a collection of deconstructed vulnerabilities and secure code patterns.<span class="cursor"></span></p>
+        <div class="cta-container">
+          <a href="#work" class="cta-button">More About Me</a>
+          <a href="/resume" class="cta-button" target="_blank" rel="noopener noreferrer">Digital Resume</a>
+        </div>
+      </div>
+    </div>
+    <div class="about-image-container terminal-window">
+      <img src="/assets/images/headshot.jpg" alt="Professional headshot of Andrew Knowles" class="profile-img" />
+      <a href="/gallery" class="cta-button" style="margin-top: 1.5rem;">Photo Gallery</a>
+      <div class="social-links">
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+          </a>
+          <a href="mailto:you@example.com" aria-label="Email Andrew Knowles">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+          </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Combined Status and Media Log Section -->
+  <section class="status-media-log-container">
+      <div class="left-column">
+          <section id="status" class="terminal-window">
+            <h2>STATUS_LOG: [CURRENT]</h2>
+            <p>🚧 Currently exploring using ai to develop websites faster!<span class="cursor"></span></p>
+          </section>
+          <section id="badges" class="terminal-window">
+            <div class="badge-container">
+              <a href="https://wigle.net" target="_blank" rel="noopener noreferrer" aria-label="WiGLE.net Stats">
+                <img src="https://wigle.net/bi/EBAoTs7y_doQCtScS6Vbzw.png" alt="WiGLE.net stats badge">
+              </a>
+              <iframe title="TryHackMe user badge" src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=5058043"></iframe>
+            </div>
+          </section>
+      </div>
+      <section id="media-log" class="terminal-window">
+        <h2>MEDIA_LOG: [COMPLETED]</h2>
+        <div class="media-content">
+            <h4>Recently Read:</h4>
+            <ul class="media-log-list">
+              <li>"Atomic Habits" by James Clear</li>
+              <li>"Naked Statistics" by Charles Wheelan</li>
+            </ul>
+            <h4>Recently Played:</h4>
+            <ul class="media-log-list">
+              <li>God of War (2018)</li>
+              <li>Resident Evil 4 Remake</li>
+              <li>Bomb Rush Cyberfunk</li>
+              <li>Balatro</li>
+            </ul>
+        </div>
+         <div class="view-all-container">
+            <a href="/media-log" class="cta-button">View Full Log</a>
+        </div>
+      </section>
+  </section>
+
+  <section id="latest-posts" class="terminal-window">
+    <h2>LATEST_POSTS: [FROM THE BLOG]</h2>
+    <div class="blog-container">
+      <div class="blog-card">
+        <h3>Post Title One: The Rise of AI</h3>
+        <p>An exploration into the rapid advancements in artificial intelligence and what it means for the future of
+          technology and society.</p>
+        <a href="#">Read More &rarr;</a>
+      </div>
+      <div class="blog-card">
+        <h3>Post Title Two: Linux Essentials</h3>
+        <p>A beginner's guide to navigating the Linux operating system, covering essential commands and concepts for
+          new users.</p>
+        <a href="#">Read More &rarr;</a>
+      </div>
+      <div class="blog-card">
+        <h3>Post Title Three: Cybersecurity Basics</h3>
+        <p>Understanding the fundamental principles of cybersecurity and how to protect your digital assets from
+          common threats.</p>
+        <a href="#">Read More &rarr;</a>
+      </div>
+    </div>
+    <div class="view-all-container">
+      <a href="/blog" class="cta-button">View All Posts</a>
+    </div>
+  </section>
+
+  <section id="newsletter" class="terminal-window">
+      <div class="newsletter-content">
+          <pre class="newsletter-art">
+  .--.
+ |o_o |
+ |:_/ |
+//   \ \
+(|     | )
+/'\_   _/`\
+\___)=(___/
+          </pre>
+          <div>
+              <h2>Don't be the developer who introduces a vulnerability.</h2>
+              <p>Get one actionable security tip, delivered weekly. Learn to fix bad code, find security flaws, and build better software. It's that simple.<span class="cursor"></span></p>
+              <form class="newsletter-form">
+                  <label for="newsletter-email" class="sr-only">Your Email:</label>
+                  <input type="email" id="newsletter-email" placeholder="your-email@domain.com" required>
+                  <button type="submit">Join the Guide</button>
+              </form>
+          </div>
+      </div>
+  </section>
+
+  <section id="work" class="terminal-window">
+    <h2>DEPLOYMENTS</h2>
+    <p>Building is the best way to learn how to break. These projects are my proving grounds—explorations in both constructing and securing applications. You'll find everything from personal code experiments to collaborative builds.<span class="cursor"></span></p>
+    <div class="portfolio">
+      <div class="project-card"></div>
+      <div class="project-card"></div>
+      <div class="project-card"></div>
+    </div>
+    <div class="view-all-container">
+      <a href="/my_work" class="cta-button">View All Work</a>
+    </div>
+  </section>
+
+  <section id="motivation" class="terminal-window">
+    <h2>MOTIVATION</h2>
+    <div class="motivation-container">
+      <figure class="cat-card">
+                <img src="/assets/images/bob.jpg" alt="A cat named Bob.">
+        <figcaption>Bob</figcaption>
+      </figure>
+      <figure class="cat-card">
+                <img src="/assets/images/tiny.jpg" alt="A cat named Tiny.">
+        <figcaption>Tiny</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<!-- Footer section -->
+<footer>
+  <div class="footer-column">
+      <a href="#" class="footer-logo-link" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="#a66bff" stroke-width="1.5" />
+          <circle cx="12" cy="12" r="2" stroke="#a66bff" stroke-width="1.5" />
+          <path d="M7 8L10 13L12 11L15 16L17 14" stroke="#a66bff" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </a>
+    <small>&copy; 2025 CorruptCache</small>
+  </div>
+  <div class="footer-column">
+      <nav aria-label="Footer Sitemap">
+          <h4>Sitemap</h4>
+          <ul class="sitemap-list">
+              <li><a href="#about">About</a></li>
+              <li><a href="/resume" target="_blank" rel="noopener noreferrer">Resume</a></li>
+              <li><a href="#work">Work</a></li>
+              <li><a href="#latest-posts">Blog</a></li>
+              <li><a href="/gallery">Photos</a></li>
+              <li><a href="#media-log">Media</a></li>
+              <li><a href="/newsletter-archives">Newsletter</a></li>
+          </ul>
+      </nav>
+  </div>
+  <div class="footer-column">
+      <div class="footer-socials">
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+              <span>corruptcache</span>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+              <span>Andrew Knowles</span>
+          </a>
+      </div>
+    <a href="mailto:you@example.com" class="footer-contact-link" aria-label="Email Andrew Knowles">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+      <span>you@example.com</span>
+    </a>
+  </div>
+</footer>

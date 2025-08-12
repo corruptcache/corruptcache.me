@@ -5,7 +5,7 @@ module.exports = () => {
   const imagePath = path.join(__dirname, '../assets/images/gallery');
   const imageFiles = fs.readdirSync(imagePath);
 
-  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
 
   const images = imageFiles.filter(file => {
     return allowedExtensions.includes(path.extname(file).toLowerCase());

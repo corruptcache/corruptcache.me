@@ -3,7 +3,7 @@ layout: layouts/post.njk
 title: "More Than Packets: How the Network+ Made Me a Better Application Security Engineer"
 description: "A deep dive into how understanding networking fundamentals with the CompTIA Network+ certification can transform a developer into a more effective Application Security Engineer."
 date: 2025-07-08
-image: /assets/images/more-than-packets-hero.png
+image: /assets/images/more-than-packets-hero.webp
 image_alt: "An abstract network grid with glowing data packets, representing the complexity of network layers."
 permalink: /blog/more-than-packets/
 tags:
@@ -33,7 +33,7 @@ The key is to use it as a map to answer one critical question: **Where is the pr
 
 Imagine your application can't reach a critical API. Instead of guessing, you use the **OSI model** to troubleshoot logically from top to bottom.
 
-![A diagram of the 7 layers of the OSI model, from Application down to Physical.](/assets/images/osi-model.png)
+![A diagram of the 7 layers of the OSI model, from Application down to Physical.](/assets/images/osi-model.webp)
 
 #### Step 1:  Check Your Own House First  (Layer 7 - Application)
 * **Action:** Use a tool like `curl` to make a direct request to the API endpoint.
