@@ -1,6 +1,7 @@
 ---
 layout: "base.njk"
 title: "VISUAL_LOG | CorruptCache"
+lightbox: true
 ---
 
 <div class="gallery-container">
@@ -34,10 +35,10 @@ title: "VISUAL_LOG | CorruptCache"
     <main class="photo-grid">
         {# This loop will generate the gallery from your images folder #}
         {% for image in gallery %}
-        <div class="photo-item" data-caption="{{ image.alt | capitalize }}">
+        <a href="{{ image.url }}" class="lightbox-trigger photo-item" title="{{ image.alt | capitalize }}">
             <img src="{{ image.url }}" alt="{{ image.alt | capitalize }}">
             <div class="overlay">View Photo</div>
-        </div>
+        </a>
         {% endfor %}
     </main>
 </div>
