@@ -13,7 +13,13 @@ permalink: /blog/index.html
     {% for post in collections.blog | reverse %}
       <article class="terminal-window">
         <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-        <p class="post-meta">Published on {{ post.date | date("MMMM d, yyyy") }} by CorruptCache</p>
+        <p class="post-meta">
+          Published on {{ post.date | date("MMMM d, yyyy") }}
+          {% if post.data.last_updated %}
+            <br><span class="updated-date">Updated on {{ post.data.last_updated | date("MMMM d, yyyy") }}</span>
+          {% endif %}
+          <br>by CorruptCache
+        </p>
         {% if post.data.description %}
           <p class="post-excerpt">{{ post.data.description }}</p>
         {% endif %}

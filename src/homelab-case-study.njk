@@ -90,8 +90,54 @@ lightbox: true
   | (Access Port: VLAN 10)
   +-------------------------------> [ PC, Laptop, Phone ]
           </pre>
-          <p style="margin-top: 1.5rem;">OPNsense Firewall Rules for IoT VLAN (Simplified):</p>
-          <img src="/assets/images/firewall-iot-rules.webp" alt="A screenshot of the OPNsense firewall rules showing a block rule for inter-VLAN traffic and allow rules for DNS and Internet access.">
+          <div class="firewall-rules">
+              <h4>OPNsense Firewall Rules for IoT VLAN</h4>
+              <div class="table-responsive">
+                  <table class="firewall-table">
+                      <thead>
+                          <tr>
+                              <th>Action</th>
+                              <th>Interface</th>
+                              <th>Source</th>
+                              <th>Port</th>
+                              <th>Destination</th>
+                              <th>Port</th>
+                              <th>Description</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="block-rule">
+                              <td>❌ Block</td>
+                              <td>IOT_VLAN</td>
+                              <td>IOT net</td>
+                              <td>Any</td>
+                              <td>LOCAL net</td>
+                              <td>Any</td>
+                              <td>Prevent IoT devices from accessing any other local network</td>
+                          </tr>
+                          <tr class="allow-rule">
+                              <td>✅ Allow</td>
+                              <td>IOT_VLAN</td>
+                              <td>IOT net</td>
+                              <td>Any</td>
+                              <td>DNS server</td>
+                              <td>53</td>
+                              <td>Allow DNS resolution</td>
+                          </tr>
+                          <tr class="allow-rule">
+                              <td>✅ Allow</td>
+                              <td>IOT_VLAN</td>
+                              <td>IOT net</td>
+                              <td>Any</td>
+                              <td>Internet</td>
+                              <td>80,443</td>
+                              <td>Allow web access for updates</td>
+                          </tr>
+
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
       
       <div class="case-study">

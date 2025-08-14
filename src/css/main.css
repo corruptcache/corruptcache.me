@@ -1695,6 +1695,99 @@ main.container {
   font-family: 'VT323', monospace;
 }
 
+/* Updated Date Styling */
+.updated-date {
+  color: #b388ff;
+  display: inline-block;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 8px rgba(179, 136, 255, 0.7); }
+  100% { opacity: 0.8; }
+}
+
+/* Firewall Rules Table */
+.firewall-rules {
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+
+.firewall-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid #333;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.firewall-table th {
+  background-color: #1a1a1a;
+  color: #a66bff;
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid #333;
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.firewall-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #2a2a2a;
+  vertical-align: middle;
+  color: #e0e0e0;
+}
+
+.firewall-table tr:last-child td {
+  border-bottom: none;
+}
+
+.firewall-table tr:hover {
+  background-color: rgba(166, 107, 255, 0.1);
+}
+
+.firewall-table .allow-rule td:first-child {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.firewall-table .block-rule td:first-child {
+  color: #f44336;
+  font-weight: bold;
+}
+
+/* Responsive table */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+/* Scrollbar styling for the table */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
 .connect-text p {
   margin-bottom: 1.5rem;
   line-height: 1.6;
