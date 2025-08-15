@@ -1,0 +1,137 @@
+---
+layout: base.njk
+permalink: /case-studies/homelab/
+title: Case Study - Secure Home Lab
+lightbox: true
+---
+
+<main class="container">
+  <div class="terminal-window">
+    <h2>[CASE_STUDY] Secure Home Lab & Network Segmentation</h2>
+
+    <div class="project">
+      <div class="project-header">
+        <h3>Project: Secure Home Lab & Media Server</h3>
+        <div class="project-links">
+          <a href="/blog/why-i-put-my-smart-devices-in-a-digital-cage/" target="_blank" rel="noopener noreferrer">Full Blog Post</a>
+        </div>
+      </div>
+      <p>A comprehensive home lab built to reclaim data ownership from subscription services and create a secure, segmented network for IoT devices and security experiments.</p>
+      <div class="tech-stack">
+        <span>OPNsense</span>
+        <span>UnRAID</span>
+        <span>Docker</span>
+        <span>VLANs</span>
+        <span>Jellyfin</span>
+        <span>Unbound DNS</span>
+      </div>
+
+      <div class="case-study-section">
+        <h4>Security Challenge</h4>
+        <p>Consumer-grade networks are typically "flat," meaning a single compromised IoT device can act as a beachhead for an attacker to compromise high-value targets like personal computers or file servers.</p>
+      </div>
+
+      <div class="case-study-section">
+        <h4>Solution</h4>
+        <p>I implemented a multi-VLAN architecture using OPNsense to segment the network into four primary zones: Trusted, IoT, Guest, and Lab. Strict firewall rules block all inter-VLAN traffic by default, with specific exceptions for necessary communication.</p>
+        
+        <div class="network-diagram">
+          <pre>
++---------------------+
+|    [Internet]      |
+|      |             |
++------|-------------+
+       |
++------v-------------+
+|    OPNsense        |
+|    Firewall        |
++--+--+--+--+--+-----+
+   |  |  |  |  |
+   |  |  |  |  +---> [ Trusted Network ]
+   |  |  |  |         (VLAN 10)
+   |  |  |  |
+   |  |  |  +---> [ IoT Network ]
+   |  |  |        (VLAN 20)
+   |  |  |
+   |  |  +---> [ Guest Network ]
+   |  |         (VLAN 30)
+   |  |
+   |  +---> [ Lab Network ]
+   |        (VLAN 40)
+   |
+   +---> [ UnRAID Server ]
+          (Access Port: VLAN 40)
+          </pre>
+        </div>
+      </div>
+
+      <div class="case-study-section">
+        <h4>Implementation Details</h4>
+        <ul>
+          <li>OPNsense firewall with multi-WAN failover</li>
+          <li>VLAN segmentation for different device types</li>
+          <li>Strict firewall rules with default deny</li>
+          <li>UnRAID server with Docker containers for services</li>
+          <li>Jellyfin media server for local streaming</li>
+          <li>Unbound DNS with ad-blocking</li>
+          <li>WireGuard VPN for secure remote access</li>
+        </ul>
+      </div>
+
+      <div class="case-study-section">
+        <h4>Results</h4>
+        <ul>
+          <li>Complete network segmentation for security</li>
+          <li>Eliminated reliance on cloud services</li>
+          <li>Improved network performance and reliability</li>
+          <li>Secure remote access to home network</li>
+          <li>Reduced attack surface for IoT devices</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+.case-study-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid #a66bff;
+}
+
+.case-study-section h4 {
+  color: #a66bff;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.network-diagram {
+  background: #0a0a0a;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #4caf50;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tech-stack span {
+  background: rgba(166, 107, 255, 0.1);
+  color: #a66bff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+</style>

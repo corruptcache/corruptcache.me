@@ -1,0 +1,127 @@
+---
+layout: base.njk
+title: Case Studies | Andrew Knowles
+description: "Explore my portfolio of security-focused case studies, including network segmentation, CI/CD security, and threat modeling."
+---
+
+<main class="container">
+  <div class="terminal-window">
+    <h2>[CASE STUDIES]</h2>
+    
+    <div class="case-studies-grid">
+      {% for study in case_studies %}
+      <article class="case-study-card {% if study.is_placeholder %}coming-soon{% endif %}">
+        <h3>{{ study.title }}</h3>
+        <p>{{ study.description }}</p>
+        
+        {% if study.tech_stack %}
+        <div class="tech-stack">
+          {% for tech in study.tech_stack %}
+          <span class="tech-tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if study.url %}
+        <a href="{{ study.url | replace('/case-study/', '/case-studies/') }}" class="button">
+          View Case Study
+        </a>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+
+<style>
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 800px);
+  gap: 1.5rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.case-study-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.case-study-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.case-study-card h3 {
+  color: #a66bff;
+  margin: 0 0 1rem 0;
+  padding-right: 6rem;
+  min-height: 2.8rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0 1.5rem 0;
+  min-height: 2.5rem;
+}
+
+.tech-tag {
+  background: rgba(166, 107, 255, 0.1);
+  color: #a66bff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.coming-soon {
+  opacity: 0.7;
+  position: relative;
+}
+
+.coming-soon::after {
+  content: 'Coming Soon';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #a66bff;
+  color: #000;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.button {
+  display: block;
+  background: #a66bff;
+  color: #000;
+  padding: 0.6rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: auto;
+  transition: all 0.2s;
+  text-align: center;
+  width: 100%;
+}
+
+.button:hover {
+  background: #8a4fff;
+  color: #000;
+  text-decoration: none;
+}
+</style>
