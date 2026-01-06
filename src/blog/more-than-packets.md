@@ -25,7 +25,7 @@ This back and fouth is an industry cliché for a reason. I remember the struggle
 
 Tired of what felt like guessing, I decided it was time to fill that gap. I challenged myself with the CompTIA Network+ certification. After weeks of studying and applying the concepts by rebuilding [my own home network from scratch](/my_work), I passed it on my first try. The real prize wasn't the certificate, though. It was the powerful new lens it gave me to see risk. It taught me that the roots of many application vulnerabilities aren't in the code, but in the network it trusts.
 
-let's go over the some concepts I stole from the Net+ syllabus, and how you can use them to become a more effective [Application Security Engineer](/resume){target="_blank" rel="noopener noreferrer"}.
+let's go over the some concepts I stole from the Net+ syllabus, and how you can use them to become a more effective [Application Security Engineer](/resume).
 
 ---
 
@@ -75,7 +75,7 @@ Your public `TXT` and `SPF` records often announce which third-party services yo
 ### Vulnerability 2: Subdomain Takeover via Dangling CNAMEs
 A `CNAME` record pointing to a decommissioned service (like an old GitHub Page or Heroku instance) is a "dangling" pointer. An attacker can claim your old address on that service and instantly host malicious content on your official subdomain. This high-impact vulnerability is called subdomain takeover, and knowing how `CNAME` records work makes you paranoid enough to look for it.
 
-![A diagram showing a malicious user exploiting a dangling CNAME record to take over a subdomain.](http://googleusercontent.com/image_generation_content/2)
+![A diagram showing a malicious user exploiting a dangling CNAME record to take over a subdomain.](/assets/images/dangling-cname.png)
 
 ### Vulnerability 3: The Threat of DNS Cache Poisoning
 An attacker can "poison" a DNS server's cache to redirect users from your legitimate site to a phishing site. While you can't always prevent this, *understanding* the threat is critical. If users report that your site looks "phishy" but you can't reproduce it, a security-aware pro would add DNS poisoning to their list of possible causes.
@@ -89,4 +89,3 @@ An attacker can "poison" a DNS server's cache to redirect users from your legiti
 Ultimately, learning these networking concepts does more than add tools to your kit; it changes your perspective. Seeing how the **OSI model** pinpoints failure and how **DNS** can be a roadmap for an attacker is fundamental to the daily work of securing applications.
 
 Your developer background isn't a past life; it's your primary advantage in the trenches of application security. It gives you the unique ability to see systems as both a builder and a breaker. Keep that builder's mindset, stay hands-on, and never stop inspecting the layers underneath the code.
-
