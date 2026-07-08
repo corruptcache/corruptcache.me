@@ -1,0 +1,6 @@
+{# src/_includes/components/terminal.njk #}
+{% macro window(id="", classes="") %}
+  <div {% if id %}id="{{ id }}"{% endif %} class="terminal-window {{ classes }}">
+    {{ caller() }}
+  </div>
+{% endmacro %}

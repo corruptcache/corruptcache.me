@@ -1,0 +1,23 @@
+u/* src/css/utilities.css */
+.u-glitch-light { animation: glitch-light 3s infinite linear; }
+.u-glitch-heavy { animation: glitch-heavy 2s infinite linear; }
+.u-pulse        { animation: placeholder-pulse 4s infinite ease-in-out; }
+
+@keyframes glitch-light {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+@keyframes glitch-heavy {
+  0%, 100% { transform: translate(0, 0) skew(0); }
+  25% { transform: translate(2px, -2px) skew(-2deg); }
+  50% { transform: translate(-2px, 2px) skew(2deg); }
+  75% { transform: translate(2px, 2px) skew(0); }
+}
+
+@keyframes placeholder-pulse {
+  0%, 100% { opacity: 0.9; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(-2px); }
+}

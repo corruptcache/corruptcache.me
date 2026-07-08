@@ -1,0 +1,32 @@
+{# src/_includes/components/card.njk #}
+{% macro render(title="", url="", modifier="interactive", animation="glitch-light", isPlaceholder=false) %}
+  
+  {# Build the class list dynamically #}
+  {% set blockClass = "c-card" %}
+  {% set modClass = "c-card--" + modifier %}
+  {% set animClass = "u-" + animation if animation and not isPlaceholder else "" %}
+  {% set placeholderClass = "c-card--placeholder u-pulse" if isPlaceholder else "" %}
+
+  <article class="{{ blockClass }} {{ modClass }} {{ animClass }} {{ placeholderClass }}">
+    
+    {% if isPlaceholder %}
+      <div class="c-card__badge-soon u-glitch-heavy">COMING SOON</div>
+    {% endif %}
+
+    {% if title %}
+      <h3 class="c-card__title">{{ title }}</h3>
+    {% endif %}
+
+    {# We wrap the caller content in the desc class so p tags inherit it safely #}
+    <div class="c-card__desc">
+      {{ caller() }}
+    </div>
+
+    {% if url and not isPlaceholder %}
+      <a href="{{ url }}" class="c-card__link">
+        {% if modifier == "graphic" %}View Project{% else %}Read More{% endif %}
+      </a>
+    {% endif %}
+
+  </article>
+{% endmacro %}

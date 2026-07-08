@@ -1,0 +1,23 @@
+/* src/css/tokens.css (or top of main.css) */
+:root {
+  --color-primary: #a66bff;
+  --bg-surface: #1a1a1a;
+  --bg-surface-alt: #1a0a1a;
+  --border-color: #333;
+  --text-main: #e0e0e0;
+  --text-muted: #888;
+  
+  --radius-md: 8px;
+  --transition-fast: 0.2s ease;
+  --transition-med: 0.3s ease;
+}
+
+/* src/css/layouts.css */
+/* Modern Grid: Replaces the brittle 33.333% flexbox math */
+.l-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+}

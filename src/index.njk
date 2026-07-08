@@ -4,6 +4,8 @@ title: CorruptCache | Andrew Knowles - Application Security
 description: The personal website and blog of Andrew Knowles, a software developer specializing in application security. Featuring articles on cybersecurity, project deployments, and learning resources.
 ---
 
+{% from "components/terminal-window.njk" import window %}
+
 <!-- Hero section with typing animation and live log -->
 <header class="hero">
   <div id="terminal-prompt-container" class="terminal-window">
@@ -20,7 +22,7 @@ description: The personal website and blog of Andrew Knowles, a software develop
 <main>
   <h1 class="sr-only">CorruptCache - Andrew Knowles's Application Security Portfolio and Blog</h1>
   <section id="about">
-    <div class="about-text-container terminal-window">
+    {% call window(classes="about-text-container") %}
       <h2>USER_PROFILE: [BIO]</h2>
       <div class="about-text">
         <p>Every line of code is a potential doorway. To secure it, you have to understand it. I leverage my background in software engineering to specialize in application security. This site is my public commit log: a collection of deconstructed vulnerabilities and secure code patterns.<span class="cursor"></span></p>
@@ -29,7 +31,7 @@ description: The personal website and blog of Andrew Knowles, a software develop
           <a href="/resume" class="cta-button">Digital Resume</a>
         </div>
       </div>
-    </div>
+    {% endcall %}
     <div class="about-image-container terminal-window">
       <img src="/assets/images/headshot.webp" alt="Professional headshot of Andrew Knowles" class="profile-img" />
       <a href="/gallery" class="cta-button" style="margin-top: 1.5rem;">Photo Gallery</a>

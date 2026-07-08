@@ -1,0 +1,50 @@
+/* src/_includes/css/terminal.css */
+.terminal-window {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 2.5rem 2rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: flicker 0.15s infinite;
+  text-shadow: 0 0 2px rgba(166, 107, 255, 0.5);
+}
+
+.terminal-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background-color: #282828;
+  border-bottom: 1px solid #333;
+}
+
+.terminal-window::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  color: #555;
+  letter-spacing: 6px;
+  font-size: 12px;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/* Include the mobile padding adjustment specifically for the terminal */
+@media (max-width: 960px) {
+  .terminal-window {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

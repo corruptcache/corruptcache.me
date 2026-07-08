@@ -1,0 +1,95 @@
+/* src/css/components/card.css */
+
+/* Block: Base Card */
+.c-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-med);
+}
+
+/* Modifier: Interactive (Hover states for blogs/case studies) */
+.c-card--interactive:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(166, 107, 255, 0.2);
+  border-color: var(--color-primary);
+}
+
+/* Modifier: Graphic (For the pure CSS project cards) */
+.c-card--graphic {
+  background-image: repeating-linear-gradient(90deg, rgba(166, 107, 255, 0.5) 1px, transparent 2px);
+  min-height: 180px;
+  border: none;
+}
+
+/* Modifier: Placeholder */
+.c-card--placeholder {
+  background: repeating-linear-gradient(45deg, var(--bg-surface), var(--bg-surface) 10px, var(--bg-surface-alt) 10px, var(--bg-surface-alt) 20px);
+  opacity: 0.9;
+}
+
+.c-card--placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0; /* Shorthand for top/left/right/bottom 0 */
+  background: linear-gradient(135deg, rgba(166, 107, 255, 0.1) 0%, rgba(166, 107, 255, 0.05) 50%, rgba(166, 107, 255, 0.1) 100%);
+  z-index: 1;
+}
+
+.c-card--placeholder > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Elements: Internal Card Pieces */
+.c-card__title {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.c-card__desc {
+  color: var(--text-main);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.c-card__link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: auto;
+  align-self: flex-start;
+  transition: text-shadow var(--transition-fast);
+}
+
+.c-card__link:hover {
+  text-decoration: underline;
+  text-shadow: 0 0 5px var(--color-primary);
+}
+
+.c-card__badge-soon {
+  position: absolute;
+  top: 1.5rem;
+  right: -3rem;
+  background: var(--color-primary);
+  color: var(--bg-surface);
+  padding: 0.3rem 3.5rem;
+  transform: rotate(45deg);
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
+  pointer-events: none;
+  white-space: nowrap;
+}
